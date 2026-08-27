@@ -1,0 +1,45 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Diagnostic / Dependency directories
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Temporary and extraction directories
+temp_frames/
+temp_video_frames/
+temp_zip/
+extracted_jt_products/
+before_extracted/
+products_extracted/
+.tempmediaStorage/
+before/
+products/
+drill_webp_1D_to_12D/
+
+# Large root zip and raw media archives
+*.zip
+*.mp4
+*.jpeg
+scene-*.txt
+*.csv
+Crown-Drill-*.png

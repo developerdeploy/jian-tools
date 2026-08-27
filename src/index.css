@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* 60% Canvas Dominant (Light Mode) */
+    --canvas-bg: #F8FAFC;
+    --canvas-surface: #FFFFFF;
+    --canvas-card: #FFFFFF;
+    
+    /* 30% Structural Secondary / Text (Light Mode) */
+    --text-primary: #0F172A;
+    --text-secondary: #334155;
+    --text-muted: #64748B;
+    --border-subtle: rgba(15, 23, 42, 0.10);
+    --border-highlight: rgba(15, 23, 42, 0.22);
+    --cad-line: rgba(15, 23, 42, 0.04);
+    
+    /* 10% Accent (Light Mode) */
+    --brand-blue: #0066FF;
+    --brand-gold: #D97706;
+  }
+
+  .dark {
+    /* 60% Canvas Dominant (Dark Mode) */
+    --canvas-bg: #07090B;
+    --canvas-surface: #0E1217;
+    --canvas-card: #131920;
+    
+    /* 30% Structural Secondary / Text (Dark Mode) */
+    --text-primary: #FFFFFF;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    --border-subtle: rgba(255, 255, 255, 0.09);
+    --border-highlight: rgba(255, 255, 255, 0.22);
+    --cad-line: rgba(255, 255, 255, 0.03);
+    
+    /* 10% Accent (Dark Mode) */
+    --brand-blue: #0066FF;
+    --brand-gold: #D4AF37;
+  }
+
+  html {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-family: 'Plus Jakarta Sans', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  body {
+    background-color: var(--canvas-bg);
+    color: var(--text-primary);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.03em;
+  }
+}
+
+/* CAD Grid Background */
+.bg-cad-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, var(--cad-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--cad-line) 1px, transparent 1px);
+}
+
+.bg-cad-grid-dense {
+  background-size: 20px 20px;
+  background-image: 
+    linear-gradient(to right, var(--cad-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--cad-line) 1px, transparent 1px);
+}
+
+/* Glassmorphism Panels following 60-30-10 */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.dark .glass-panel {
+  background: rgba(14, 18, 23, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.glass-panel-subtle {
+  background: rgba(241, 245, 249, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.dark .glass-panel-subtle {
+  background: rgba(14, 18, 23, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--canvas-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-blue);
+}
+
+/* Radial Vignette */
+.bg-radial-vignette {
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    rgba(7, 9, 11, 0.4) 60%,
+    rgba(7, 9, 11, 0.85) 100%
+  );
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
