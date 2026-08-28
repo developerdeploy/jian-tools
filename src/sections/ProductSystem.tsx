@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { jtCategories, JTCategory } from '../data/jtProducts';
-import { ArrowRight, ArrowUpRight, Shield, Layers, ChevronRight } from 'lucide-react';
+import { jtCategories } from '../data/jtProducts';
+import { ArrowRight, ArrowUpRight, ChevronRight } from 'lucide-react';
 
 interface ProductSystemProps {
   onOpenCatalogue: (categorySlug?: string) => void;
@@ -16,47 +16,45 @@ export const ProductSystem: React.FC<ProductSystemProps> = ({
   const firstProduct = activeCategory.products[0];
 
   return (
-    <section id="products" className="relative w-full py-28 bg-slate-50 dark:bg-[#07090B] border-t border-slate-200 dark:border-white/10 overflow-hidden">
+    <section id="products" className="relative w-full py-24 bg-[#F3F3F1] dark:bg-[#080A0C] border-b border-black/[0.08] dark:border-white/[0.08] overflow-hidden">
       {/* Background CAD Grid */}
-      <div className="absolute inset-0 bg-cad-grid opacity-10 dark:opacity-20 pointer-events-none" />
+      <div className="absolute inset-0 bg-cad-grid opacity-15 pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-12">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-8 border-b border-slate-200 dark:border-white/10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-black/[0.08] dark:border-white/[0.08]">
           <div>
             <div className="flex items-center space-x-3 mb-3">
-              <span className="w-8 h-px bg-precision-blue" />
-              <span className="text-[11px] font-mono font-bold tracking-cad text-precision-blue uppercase">
-                TOOLING ECOSYSTEM // 11 PRECISION CATEGORIES
+              <span className="w-6 h-px bg-precision-blue" />
+              <span className="text-[11px] font-mono font-medium tracking-widest text-[#64748B] dark:text-[#94A3B8] uppercase">
+                04 / TOOLING ECOSYSTEM // 11 PRECISION CATEGORIES
               </span>
             </div>
-            <h2 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 dark:text-white leading-none font-display">
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-[#080A0C] dark:text-white leading-none font-display">
               TOOLING FOR THE <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-700 via-slate-900 to-slate-600 dark:from-steel-200 dark:via-white dark:to-steel-400">
-                ENTIRE CUT.
-              </span>
+              <span className="text-[#64748B] dark:text-[#94A3B8]">ENTIRE CUT.</span>
             </h2>
           </div>
 
-          <div className="mt-6 md:mt-0 flex items-center space-x-4">
+          <div className="mt-4 md:mt-0 flex items-center space-x-3">
             <button
               onClick={() => onOpenCatalogue()}
-              className="inline-flex items-center space-x-2 px-6 py-3.5 rounded-xl bg-precision-blue hover:bg-blue-600 text-white text-xs font-mono font-bold tracking-wider transition-all duration-300 shadow-[0_0_20px_rgba(0,102,255,0.4)]"
+              className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-lg bg-precision-blue hover:bg-blue-600 text-white text-xs font-mono font-medium tracking-wider transition-colors cursor-pointer border border-blue-400/30"
             >
               <span>EXPLORE ALL 11 CATEGORIES</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
 
-        {/* Interactive Curated Tool Gallery (Physical-Feel Transition) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-16">
+        {/* Interactive Curated Tool Gallery */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch mb-12">
           
           {/* Left Column: Category Vertical Navigation Index */}
-          <div className="lg:col-span-4 flex flex-col space-y-1.5 max-h-[560px] overflow-y-auto pr-1">
-            <div className="text-[10px] font-mono text-slate-400 dark:text-steel-500 uppercase tracking-widest mb-1 px-2 font-semibold">
-              SELECT TOOL CATEGORY //
+          <div className="lg:col-span-4 flex flex-col space-y-1 max-h-[540px] overflow-y-auto pr-1">
+            <div className="text-[10px] font-mono text-[#64748B] dark:text-[#94A3B8] uppercase tracking-widest mb-1.5 px-2 font-semibold">
+              SELECT CATEGORY //
             </div>
 
             {jtCategories.map((cat, idx) => {
@@ -65,74 +63,74 @@ export const ProductSystem: React.FC<ProductSystemProps> = ({
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategoryIndex(idx)}
-                  className={`p-3.5 rounded-xl text-left transition-all duration-200 flex items-center justify-between border ${
+                  className={`p-3 rounded-lg text-left transition-colors flex items-center justify-between border cursor-pointer ${
                     isActive
-                      ? 'bg-white dark:bg-[#0E1217] border-precision-blue shadow-md text-slate-900 dark:text-white'
-                      : 'bg-slate-100/60 dark:bg-white/5 border-slate-200/60 dark:border-white/5 hover:border-slate-300 dark:hover:border-white/15 text-slate-600 dark:text-steel-400 hover:text-slate-900 dark:hover:text-white'
+                      ? 'bg-white dark:bg-[#111417] border-precision-blue text-[#080A0C] dark:text-white shadow-sm'
+                      : 'bg-black/[0.02] dark:bg-white/[0.03] border-black/[0.06] dark:border-white/[0.06] hover:border-black/[0.15] dark:hover:border-white/[0.15] text-[#64748B] dark:text-[#94A3B8] hover:text-[#080A0C] dark:hover:text-white'
                   }`}
                 >
                   <div className="flex items-center space-x-3">
-                    <span className={`text-xs font-mono font-bold ${isActive ? 'text-precision-blue' : 'text-slate-400 dark:text-steel-500'}`}>
+                    <span className={`text-xs font-mono font-bold ${isActive ? 'text-precision-blue' : 'text-[#64748B]'}`}>
                       {cat.index}
                     </span>
-                    <span className="text-xs sm:text-sm font-bold truncate">
+                    <span className="text-xs font-bold truncate">
                       {cat.name}
                     </span>
                   </div>
 
-                  <ChevronRight className={`w-4 h-4 shrink-0 transition-transform ${isActive ? 'text-precision-blue translate-x-0.5' : 'opacity-0'}`} />
+                  <ChevronRight className={`w-3.5 h-3.5 shrink-0 transition-transform ${isActive ? 'text-precision-blue translate-x-0.5' : 'opacity-0'}`} />
                 </button>
               );
             })}
           </div>
 
-          {/* Right Column: Large Physical Product Gallery Showcase */}
-          <div className="lg:col-span-8 rounded-2xl bg-white dark:bg-[#0E1217] border border-slate-200 dark:border-white/10 p-6 sm:p-10 flex flex-col justify-between shadow-sm dark:shadow-2xl relative overflow-hidden">
+          {/* Right Column: Physical Product Gallery Showcase */}
+          <div className="lg:col-span-8 rounded-xl bg-white dark:bg-[#111417] border border-black/[0.08] dark:border-white/[0.08] p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
             
             {/* Top Category Datum Header */}
-            <div className="flex items-center justify-between text-xs font-mono border-b border-slate-100 dark:border-white/10 pb-4 mb-6">
+            <div className="flex items-center justify-between text-xs font-mono border-b border-black/[0.06] dark:border-white/[0.06] pb-3 mb-6">
               <div className="flex items-center space-x-2 text-precision-blue font-bold">
-                <span className="w-2 h-2 rounded-full bg-precision-blue" />
+                <span className="w-1.5 h-1.5 rounded-full bg-precision-blue" />
                 <span>CATEGORY {activeCategory.index} // {activeCategory.tagline.toUpperCase()}</span>
               </div>
-              <span className="text-slate-400 dark:text-steel-500 font-semibold">
+              <span className="text-[#64748B] dark:text-[#94A3B8] font-medium text-[10px]">
                 JIAN TOOLS PRECISION SPEC
               </span>
             </div>
 
             {/* Product Centerpiece */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center py-4">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center py-2">
               
               {/* Product Visual Showcase */}
-              <div className="md:col-span-7 relative h-64 sm:h-80 flex items-center justify-center p-4 rounded-xl bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-white/5 overflow-hidden group">
+              <div className="md:col-span-7 relative h-64 sm:h-72 flex items-center justify-center p-4 rounded-lg bg-black/[0.02] dark:bg-black/30 border border-black/[0.06] dark:border-white/[0.06] overflow-hidden group">
                 <img
                   src={activeCategory.primaryImage}
                   alt={activeCategory.name}
-                  className="max-h-full max-w-full object-contain filter grayscale contrast-120 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                  className="max-h-full max-w-full object-contain filter contrast-110 group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
 
               {/* Product Technical Narrative & Specifications */}
               <div className="md:col-span-5 flex flex-col justify-between h-full">
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2 font-display">
+                  <h3 className="text-xl font-bold text-[#080A0C] dark:text-white mb-2 font-display">
                     {activeCategory.name}
                   </h3>
-                  <p className="text-xs text-slate-600 dark:text-steel-300 leading-relaxed mb-6">
+                  <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed mb-4">
                     {activeCategory.description}
                   </p>
 
                   {firstProduct && firstProduct.technicalSpecs && (
-                    <div className="space-y-2 mb-6">
-                      <div className="text-[10px] font-mono text-slate-400 dark:text-steel-500 uppercase tracking-widest font-bold">
+                    <div className="space-y-1.5 mb-4">
+                      <div className="text-[10px] font-mono text-[#64748B] dark:text-[#94A3B8] uppercase tracking-widest font-bold">
                         ENGINEERING SPECIFICATIONS
                       </div>
                       {firstProduct.technicalSpecs.slice(0, 3).map((spec, i) => (
                         <div
                           key={i}
-                          className="text-xs font-mono p-2.5 rounded-lg bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-white/5 flex items-center justify-between text-slate-800 dark:text-steel-200"
+                          className="text-xs font-mono p-2 rounded-md bg-black/[0.02] dark:bg-black/30 border border-black/[0.06] dark:border-white/[0.06] flex items-center justify-between text-[#080A0C] dark:text-white"
                         >
-                          <span className="text-slate-500 dark:text-steel-400 text-[10px]">{spec.label}</span>
+                          <span className="text-[#64748B] dark:text-[#94A3B8] text-[10px]">{spec.label}</span>
                           <span className="font-bold text-precision-blue text-xs">{spec.value}</span>
                         </div>
                       ))}
@@ -140,10 +138,10 @@ export const ProductSystem: React.FC<ProductSystemProps> = ({
                   )}
                 </div>
 
-                <div className="flex items-center space-x-3 pt-4 border-t border-slate-100 dark:border-white/5">
+                <div className="flex items-center space-x-2.5 pt-3 border-t border-black/[0.06] dark:border-white/[0.06]">
                   <button
                     onClick={() => onOpenCatalogue(activeCategory.slug)}
-                    className="flex-1 inline-flex items-center justify-center space-x-2 py-3 rounded-xl bg-precision-blue hover:bg-blue-600 text-white text-xs font-mono font-bold tracking-wider transition-all"
+                    className="flex-1 inline-flex items-center justify-center space-x-2 py-2.5 rounded-lg bg-precision-blue hover:bg-blue-600 text-white text-xs font-mono font-medium tracking-wider transition-colors cursor-pointer border border-blue-400/30"
                   >
                     <span>VIEW CATEGORY</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -151,7 +149,7 @@ export const ProductSystem: React.FC<ProductSystemProps> = ({
 
                   <button
                     onClick={() => onOpenEnquiry(activeCategory.name)}
-                    className="p-3 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white transition-colors"
+                    className="p-2.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.04] hover:bg-black/[0.08] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.08] text-[#080A0C] dark:text-white transition-colors cursor-pointer"
                     title={`Request quotation for ${activeCategory.name}`}
                   >
                     <ArrowUpRight className="w-4 h-4 text-precision-blue" />

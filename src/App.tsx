@@ -45,7 +45,7 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-slate-50 dark:bg-[#07090B] text-slate-900 dark:text-steel-200 selection:bg-precision-blue/30 selection:text-white font-sans antialiased transition-colors duration-300">
+    <div className="relative min-h-screen bg-[#F3F3F1] dark:bg-[#080A0C] text-[#080A0C] dark:text-[#E2E8F0] selection:bg-precision-blue/30 selection:text-white font-sans antialiased transition-colors duration-200">
       {/* Minimal Loading Screen Overlay */}
       {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
 

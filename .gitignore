@@ -24,22 +24,31 @@ dist-ssr
 *.sln
 *.sw?
 
-# Temporary and extraction directories
-temp_frames/
-temp_video_frames/
-temp_zip/
-extracted_jt_products/
-before_extracted/
-products_extracted/
-.tempmediaStorage/
-before/
-products/
-drill_webp_1D_to_12D/
+# Temporary and extraction directories in repository root
+/temp_frames/
+/temp_video_frames/
+/temp_zip/
+/extracted_jt_products/
+/before_extracted/
+/products_extracted/
+/.tempmediaStorage/
+/before/
+/products/
+/drill_webp_1D_to_12D/
 
-# Large root zip and raw media archives
-*.zip
-*.mp4
-*.jpeg
-scene-*.txt
-*.csv
-Crown-Drill-*.png
+# Large root zip and raw media archives in root only
+/*.zip
+/*.mp4
+/*.jpeg
+/WhatsApp Image*.jpeg
+/scene-*.txt
+/*.csv
+/Crown-Drill-*.png
+/*.SLDPRT
+/.agents/
+
+# Always track all public directory assets (images, products, videos, icons)
+!/public/
+!/public/**
+
+
