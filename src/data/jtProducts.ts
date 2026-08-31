@@ -145,18 +145,18 @@ export const jtProductsData: JTProduct[] = [
     types: ['Brazed Type', 'Indexable Type'],
     images: [
       {
-        original: '/assets/images/products/gun_drill_1.jpg',
-        w1200: '/assets/images/products/gun_drill_1.jpg',
-        w600: '/assets/images/products/gun_drill_1.jpg',
-        w300: '/assets/images/products/gun_drill_1.jpg',
-        transparent: '/assets/images/products/gun_drill_1.jpg',
+        original: '/assets/images/products/gun_drill_1.webp',
+        w1200: '/assets/images/products/gun_drill_1.webp',
+        w600: '/assets/images/products/gun_drill_1.webp',
+        w300: '/assets/images/products/gun_drill_1.webp',
+        transparent: '/assets/images/products/gun_drill_1.webp',
       },
       {
-        original: '/assets/images/products/gun_drill_2.jpg',
-        w1200: '/assets/images/products/gun_drill_2.jpg',
-        w600: '/assets/images/products/gun_drill_2.jpg',
-        w300: '/assets/images/products/gun_drill_2.jpg',
-        transparent: '/assets/images/products/gun_drill_2.jpg',
+        original: '/assets/images/products/gun_drill_2.webp',
+        w1200: '/assets/images/products/gun_drill_2.webp',
+        w600: '/assets/images/products/gun_drill_2.webp',
+        w300: '/assets/images/products/gun_drill_2.webp',
+        transparent: '/assets/images/products/gun_drill_2.webp',
       }
     ],
     features: [
@@ -619,7 +619,7 @@ export const jtCategories: JTCategory[] = [
     name: 'GUN DRILLS (BRAZED & INDEXABLE)',
     tagline: 'Precision Deep Holemaking up to 80xD',
     description: 'Single-flute gun drills for high straightness and tight bore tolerances in small to medium deep-hole drilling operations.',
-    primaryImage: '/assets/images/products/gun_drill_1.jpg',
+    primaryImage: '/assets/images/products/gun_drill_1.webp',
     productCount: 1,
     products: jtProductsData.filter(p => p.categorySlug === 'gun-drills')
   },
@@ -712,3 +712,4 @@ export const jtCategories: JTCategory[] = [
     products: jtProductsData.filter(p => p.categorySlug === 'iso-turning-milling-inserts')
   }
 ];
+

@@ -12,9 +12,8 @@ export const ModularDrilling: React.FC<ModularDrillingProps> = ({ onOpenEnquiry 
 
   const activeDrill = modularDrillVariations[selectedDepthIndex];
   
-  const getModelUrl = (depthRatio: string) => {
-    const lower = depthRatio.toLowerCase();
-    return `/models/${lower}${['8d', '9d', '12d'].includes(lower) ? '.stp' : '.zip'}`;
+  const getModelUrl = () => {
+    return `/models/${activeDrill.depthMultiplier}D.stl`;
   };
 
   return (
@@ -46,12 +45,12 @@ export const ModularDrilling: React.FC<ModularDrillingProps> = ({ onOpenEnquiry 
 
           <div className="mt-4 md:mt-0 flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
             <a
-              href={getModelUrl(activeDrill.depthRatio)}
+              href={getModelUrl()}
               download
               className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-lg bg-precision-blue hover:bg-blue-600 text-white text-xs font-mono transition-all shadow-[0_0_15px_rgba(0,102,255,0.3)] font-semibold"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>DOWNLOAD 3D MODEL (.STP)</span>
+              <span>DOWNLOAD 3D MODEL (.STL)</span>
             </a>
 
             <button

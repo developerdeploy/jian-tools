@@ -58,3 +58,6 @@ extracted_models/
 *.zip
 *.png
 
+
+_archive/
+

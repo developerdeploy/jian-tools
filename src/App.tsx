@@ -19,6 +19,7 @@ import { EnquiryModal } from './components/EnquiryModal';
 import { ToolingCalculatorModal } from './components/ToolingCalculatorModal';
 import { WhatsAppFloatingButton } from './components/WhatsAppFloatingButton';
 import { JTProduct } from './data/jtProducts';
+import { SEO } from './components/SEO';
 
 const AppContent: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<PageId>('home');
@@ -49,8 +50,37 @@ const AppContent: React.FC = () => {
     setIsEnquiryOpen(true);
   };
 
+  // Dynamic SEO Configuration
+  const getSeoConfig = () => {
+    switch (currentPage) {
+      case 'home':
+        return { title: 'JIAN TOOLS | Precision Carbide Cutting Tools & Modular Drilling', desc: 'JIAN TOOLS — Precision carbide cutting tools and modular drilling solutions engineered for accuracy, performance, and reliability.', path: '' };
+      case 'products':
+        return { title: 'Product Range & Catalog | JIAN TOOLS', desc: 'Explore JIAN TOOLS precision carbide cutting tools, modular drills, endmills, reamers, and custom profile tooling.', path: 'products' };
+      case 'technical':
+        return { title: 'Technical Engineering Resources | JIAN TOOLS', desc: 'Technical specifications, cutting parameters, and engineering resources for JIAN TOOLS precision machining products.', path: 'technical' };
+      case 'applications':
+        return { title: 'Industrial Tooling Applications | JIAN TOOLS', desc: 'JIAN TOOLS applied in structural steel, heat exchangers, heavy engineering, and precision automotive machining.', path: 'applications' };
+      case 'about':
+        return { title: 'About Us | JIAN TOOLS', desc: 'Learn about JIAN TOOLS, a leading manufacturer of high-performance carbide cutting tools based in Vadodara, Gujarat.', path: 'about' };
+      case 'contact':
+        return { title: 'Contact Us | JIAN TOOLS', desc: 'Get in touch with JIAN TOOLS for engineering consultations, custom tooling requests, and technical support. Response within 24 hours.', path: 'contact' };
+      case 'calculators':
+        return { title: 'Engineering Calculators | JIAN TOOLS', desc: 'Interactive machining calculators for speed, feed, tapping torque, and cutting fluid optimization.', path: 'calculators' };
+      default:
+        return { title: 'JIAN TOOLS | Precision Carbide Cutting Tools', desc: 'FROM CARBIDE TO PRECISION. High-performance modular drilling and precision carbide cutting tools engineered for demanding industrial machining.', path: '' };
+    }
+  };
+  
+  const seo = getSeoConfig();
+
   return (
     <div className="relative min-h-screen bg-[#F3F3F1] dark:bg-[#080A0C] text-[#080A0C] dark:text-[#E2E8F0] selection:bg-precision-blue/30 selection:text-white font-sans antialiased transition-colors duration-200">
+      <SEO 
+        title={seo.title} 
+        description={seo.desc} 
+        canonical={`https://jiantools.in/${seo.path}`} 
+      />
       {/* Floating Header with Navigation */}
       <Navbar
         currentPage={currentPage}

@@ -24,13 +24,18 @@ export const ModularCrownAssembly: React.FC<ModularCrownAssemblyProps> = ({ onOp
   
   const [isAutoSpinning, setIsAutoSpinning] = useState<boolean>(false);
   const [materialMode, setMaterialMode] = useState<'solid' | '3d-render'>('solid');
+  const [showInteractionOverlay, setShowInteractionOverlay] = useState(true);
+
+  useEffect(() => {
+    // Lock the 3D model interaction whenever the user changes the drill bit
+    setShowInteractionOverlay(true);
+  }, [selectedDepthIndex]);
 
   const activeDrill = modularDrillVariations[selectedDepthIndex];
   const depthMultiplier = activeDrill.depthMultiplier;
   
-  const getModelUrl = (depthRatio: string) => {
-    const lower = depthRatio.toLowerCase();
-    return `/models/${lower}${['8d', '9d', '12d'].includes(lower) ? '.stp' : '.zip'}`;
+  const getModelUrl = () => {
+    return `/models/${activeDrill.depthMultiplier}D.stl`;
   };
 
   return (
@@ -51,7 +56,7 @@ export const ModularCrownAssembly: React.FC<ModularCrownAssemblyProps> = ({ onOp
 
           <div className="mt-4 md:mt-0 flex items-center space-x-3">
             <a
-              href={getModelUrl(activeDrill.depthRatio)}
+              href={getModelUrl()}
               download
               className="inline-flex items-center space-x-2 px-4 py-2 rounded-lg bg-precision-blue text-white text-sm font-medium transition-colors shadow-sm hover:bg-blue-600 cursor-pointer"
             >
@@ -129,27 +134,36 @@ export const ModularCrownAssembly: React.FC<ModularCrownAssemblyProps> = ({ onOp
                   />
                 </div>
               ) : activeTab === 'all-12-lineup' ? (
-                <div className="relative flex items-end justify-between h-full w-full overflow-x-auto space-x-2 px-2 py-4 animate-fade-in">
-                  {modularDrillVariations.map((d) => (
-                    <div
-                      key={d.depthRatio}
-                      onClick={() => {
-                        setSelectedDepthIndex(d.depthMultiplier - 1);
-                        setActiveTab('official-drill');
-                      }}
-                      className="flex flex-col items-center cursor-pointer hover:scale-105 transition-transform shrink-0 h-full justify-end"
-                      style={{ width: '45px' }}
-                    >
-                      <img
-                        src={`/assets/images/modular-drills/official/transparent/${d.depthMultiplier}D.webp`}
-                        alt={`Drill ${d.depthRatio}`}
-                        className="h-60 object-contain"
-                      />
-                      <span className="text-[10px] font-medium text-gray-500 dark:text-gray-400 mt-2">
-                        {d.depthRatio}
-                      </span>
-                    </div>
-                  ))}
+                <div className="relative flex items-end justify-between h-full w-full overflow-x-auto space-x-2 px-2 py-4 animate-fade-in bg-white dark:bg-[#141414]">
+                  {modularDrillVariations.map((d) => {
+                    const targetHeight = 40 + (d.depthMultiplier * 15);
+                    return (
+                      <div
+                        key={d.depthRatio}
+                        onClick={() => {
+                          setSelectedDepthIndex(d.depthMultiplier - 1);
+                          setActiveTab('official-drill');
+                        }}
+                        className="flex flex-col items-center cursor-pointer shrink-0 h-full justify-end pb-2"
+                        style={{ width: '60px' }}
+                      >
+                        <div 
+                          className="w-full transition-transform duration-300 flex items-end justify-center hover:scale-110"
+                          style={{ height: `${targetHeight}px` }}
+                        >
+                          <img 
+                            src={d.image} 
+                            alt={`${d.depthRatio} Drill`}
+                            className="max-h-full max-w-full object-contain mix-blend-multiply dark:mix-blend-normal"
+                            draggable={false}
+                          />
+                        </div>
+                        <span className="text-[10px] font-medium text-gray-500 dark:text-gray-400 mt-2">
+                          {d.depthRatio}
+                        </span>
+                      </div>
+                    );
+                  })}
                 </div>
               ) : (
                 <CadModularDrillViewer
@@ -163,6 +177,28 @@ export const ModularCrownAssembly: React.FC<ModularCrownAssemblyProps> = ({ onOp
                 <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center space-x-1.5 bg-gray-900/80 text-white text-xs px-3 py-1 rounded-full pointer-events-none z-10">
                   <Rotate3d className="w-3 h-3 text-precision-blue" />
                   <span>Drag to rotate • Pinch to zoom</span>
+                </div>
+              )}
+              
+              {/* Interaction Overlay */}
+              {showInteractionOverlay && (
+                <div 
+                  className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/60 cursor-pointer backdrop-blur-sm animate-fade-in text-white transition-opacity duration-300"
+                  onClick={() => setShowInteractionOverlay(false)}
+                >
+                  <div className="animate-bounce mb-4">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z" opacity="0.2"/>
+                      <path d="M12 12v8"/>
+                      <path d="m8 16 4 4 4-4"/>
+                      <path d="M10.5 7.5a1.5 1.5 0 1 1 3 0v4.5"/>
+                      <path d="M13.5 10a1.5 1.5 0 1 1 3 0v3"/>
+                      <path d="M16.5 12a1.5 1.5 0 1 1 3 0v2c0 3.3-2.7 6-6 6h-1c-3.3 0-6-2.7-6-6v-3a1.5 1.5 0 1 1 3 0v1.5"/>
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold tracking-wide shadow-black drop-shadow-md">
+                    Click to view 3D model
+                  </h3>
                 </div>
               )}
             </div>

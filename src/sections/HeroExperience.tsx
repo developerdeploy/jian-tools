@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { ArrowRight, Film } from 'lucide-react';
 
 interface HeroExperienceProps {
@@ -12,6 +12,17 @@ export const HeroExperience: React.FC<HeroExperienceProps> = ({
   onOpenEnquiry,
   onViewAnimationSoon
 }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleTimeUpdate = () => {
+    if (videoRef.current && videoRef.current.duration) {
+      // Loop the video 8 seconds before it actually ends to hide the 'coming soon' text
+      if (videoRef.current.currentTime >= videoRef.current.duration - 8.0) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.play().catch(() => {});
+      }
+    }
+  };
   return (
     <section
       id="hero"
@@ -20,13 +31,15 @@ export const HeroExperience: React.FC<HeroExperienceProps> = ({
       {/* Background Video */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
+          onTimeUpdate={handleTimeUpdate}
           className="w-full h-full object-cover opacity-60"
         >
-          <source src="/hero-bg.mp4" type="video/mp4" />
+          <source src="/hero-bg.webm" type="video/webm" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-black/40 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-black/60 to-transparent" />

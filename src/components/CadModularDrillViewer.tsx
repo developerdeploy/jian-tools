@@ -9,16 +9,19 @@ interface CadModularDrillViewerProps {
   isAutoSpinning: boolean;
   className?: string;
   materialMode?: 'solid' | '3d-render';
+  enableRotation?: boolean;
+  alignBottom?: boolean;
 }
 
 export const CadModularDrillViewer: React.FC<CadModularDrillViewerProps> = ({
   depthMultiplier,
   isAutoSpinning,
   className = '',
-  materialMode = '3d-render'
+  materialMode = '3d-render',
+  enableRotation = true,
+  alignBottom = false
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
@@ -46,14 +49,14 @@ export const CadModularDrillViewer: React.FC<CadModularDrillViewerProps> = ({
     
     // Materials
     const basicSolidMat = new THREE.MeshStandardMaterial({
-      color: 0xcccccc, // basic flat grey
+      color: 0x777777, // darker grey to contrast with white background
       roughness: 0.8,
       metalness: 0.1,
     });
     
-    // Hyper-realistic silver metal
-    const realisticSilverMat = new THREE.MeshStandardMaterial({
-      color: 0xd4d7d9,
+    // Hyper-realistic silver metal (darkened base color for better contrast and detail)
+    const realisticSilverMat = new THREE.MeshPhysicalMaterial({
+      color: 0x9a9fa3, // darker gunmetal/carbide silver
       roughness: 0.1,
       metalness: 0.95,
       clearcoat: 0.5,
@@ -78,11 +81,31 @@ export const CadModularDrillViewer: React.FC<CadModularDrillViewerProps> = ({
           const size = new THREE.Vector3();
           geometry.boundingBox.getSize(size);
           const maxDim = Math.max(size.x, size.y, size.z);
-          const scale = 10 / maxDim;
+          
+          // Force the visual length to grow linearly based on depth multiplier.
+          // 1D -> ~3 units, 12D -> ~9 units.
+          const targetLength = 2.5 + (depthMultiplier * 0.55);
+          const scale = targetLength / maxDim;
           mesh.scale.set(scale, scale, scale);
           
-          // Typical STL orientation correction
-          mesh.rotation.x = -Math.PI / 2;
+          // Auto-orientation: ensure the longest dimension is aligned with the Y-axis (up)
+          if (size.z >= size.x && size.z >= size.y) {
+            // Longest is Z
+            mesh.rotation.x = -Math.PI / 2;
+          } else if (size.x > size.y && size.x > size.z) {
+            // Longest is X
+            mesh.rotation.z = Math.PI / 2;
+          } else {
+            // Longest is Y
+            mesh.rotation.set(0, 0, 0);
+          }
+          
+          // Align bottoms to a consistent baseline so they grow upwards like a staircase.
+          if (alignBottom) {
+            mesh.position.y = -4.5 + targetLength / 2;
+          } else {
+            mesh.position.y = 0; // centered in the single view
+          }
         }
         
         if (modelGroupRef.current) {
@@ -96,23 +119,29 @@ export const CadModularDrillViewer: React.FC<CadModularDrillViewerProps> = ({
   }, [depthMultiplier, materialMode]);
 
   useEffect(() => {
-    if (!canvasRef.current || !containerRef.current) return;
+    if (!containerRef.current) return;
+    const container = containerRef.current;
     
-    const w = containerRef.current.clientWidth;
-    const h = containerRef.current.clientHeight;
+    const w = container.clientWidth;
+    const h = container.clientHeight;
+    
+    const canvas = document.createElement('canvas');
+    canvas.className = "w-full h-full cursor-grab active:cursor-grabbing outline-none";
+    canvas.style.touchAction = 'none';
+    container.appendChild(canvas);
     
     const scene = new THREE.Scene();
     sceneRef.current = scene;
     
     const camera = new THREE.PerspectiveCamera(40, w / h, 0.1, 100);
-    camera.position.set(0, 0, 15);
+    camera.position.set(0, 0, 11);
     cameraRef.current = camera;
     
-    const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current, antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setSize(w, h);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.0;
+    renderer.toneMappingExposure = 0.85; // Lowered to prevent white blowout
     rendererRef.current = renderer;
     
     const pmremGenerator = new THREE.PMREMGenerator(renderer);
@@ -131,9 +160,9 @@ export const CadModularDrillViewer: React.FC<CadModularDrillViewerProps> = ({
     fill.position.set(-5, -2, -5);
     scene.add(fill);
     
-    // Add rim lights for metallic realism
+    // Add rim lights for metallic realism (moved to the side to avoid blinding the tip)
     const rim = new THREE.DirectionalLight(0xffffff, 2.5);
-    rim.position.set(0, 10, -10);
+    rim.position.set(10, 0, -10);
     scene.add(rim);
 
     // Orbit Controls
@@ -148,6 +177,16 @@ export const CadModularDrillViewer: React.FC<CadModularDrillViewerProps> = ({
     // Limit zoom to prevent clipping
     controls.minDistance = 5;
     controls.maxDistance = 50;
+    
+    // Allow complete freedom for vertical movement
+    // (Removed polar angle constraints)
+
+    if (!enableRotation) {
+      controls.enableRotate = false;
+      controls.enableZoom = false;
+      controls.enablePan = false;
+    }
+    
     controlsRef.current = controls;
 
     const handleResize = () => {
@@ -163,8 +202,12 @@ export const CadModularDrillViewer: React.FC<CadModularDrillViewerProps> = ({
     return () => {
       window.removeEventListener('resize', handleResize);
       controls.dispose();
+      renderer.forceContextLoss();
       renderer.dispose();
       pmremGenerator.dispose();
+      if (container.contains(canvas)) {
+        container.removeChild(canvas);
+      }
     };
   }, []);
 
@@ -185,9 +228,6 @@ export const CadModularDrillViewer: React.FC<CadModularDrillViewerProps> = ({
   }, [isAutoSpinning]);
 
   return (
-    <div ref={containerRef} className={`w-full h-full relative ${className}`}>
-      {/* Removed pointer-events-none so OrbitControls can intercept touch/mouse events */}
-      <canvas ref={canvasRef} className="w-full h-full cursor-grab active:cursor-grabbing outline-none" style={{ touchAction: 'none' }} />
-    </div>
+    <div ref={containerRef} className={`w-full h-full relative ${className}`} />
   );
 };

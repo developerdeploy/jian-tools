@@ -164,7 +164,7 @@ export const TechnicalPage: React.FC<TechnicalPageProps> = ({
       {/* Hero Banner */}
       <div className="relative w-full h-[300px] bg-slate-900 dark:bg-black overflow-hidden mb-12">
         <img 
-          src="/assets/images/technical/tech_banner_1787990294502.jpg" 
+          src="/assets/images/technical/tech_banner_1787990294502.webp" 
           alt="Technical Engineering Data" 
           className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay"
         />
@@ -222,3 +222,4 @@ export const TechnicalPage: React.FC<TechnicalPageProps> = ({
     </div>
   );
 };
+

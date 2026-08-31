@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /assets/models/
+Disallow: /scratch/
 
-Sitemap: https://jiantools.com/sitemap.xml
+Sitemap: https://jiantools.in/sitemap.xml

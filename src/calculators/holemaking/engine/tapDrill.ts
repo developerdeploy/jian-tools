@@ -1,5 +1,5 @@
 import { isValidNumber } from './shared';
-import { getClosestStandardDrill } from './drills'; // We'll create this helper
+import { getClosestStandardDrill, StandardDrill } from './drills';
 
 export interface TapDrillInput {
   unitSystem: 'metric' | 'imperial';
@@ -12,7 +12,7 @@ export interface TapDrillInput {
 
 export interface TapDrillResult {
   holeDiameter: number;
-  closestStandardDrill?: { name: string; diameter: number };
+  closestStandardDrill?: StandardDrill;
   actualPercent?: number;
   dimensionalDifference?: number;
   formingMinHole?: number;
@@ -23,8 +23,7 @@ export function calculateTapDrill(input: TapDrillInput): TapDrillResult | null {
   const { unitSystem, tapType, majorDiameter, pitch, threadPercent } = input;
 
   if (tapType === 'machine_screw') {
-    // We will handle machine screw lookup separately or before passing here
-    return null; // Will implement via lookup
+    return null;
   }
 
   if (!isValidNumber(majorDiameter, false) || majorDiameter <= 0) return null;
@@ -32,8 +31,6 @@ export function calculateTapDrill(input: TapDrillInput): TapDrillResult | null {
   if (!isValidNumber(threadPercent, false) || threadPercent <= 0 || threadPercent > 100) return null;
 
   if (tapType === 'forming' && (threadPercent < 55 || threadPercent > 75)) {
-     // Forming taps must be between 55% and 75%
-     // The PRD says "show warning, do not extrapolate by default", so we can return null or clamp
      return null; 
   }
 
@@ -43,10 +40,8 @@ export function calculateTapDrill(input: TapDrillInput): TapDrillResult | null {
 
   if (tapType === 'cutting') {
     if (unitSystem === 'metric') {
-      // hole_mm = D_mm - ((thread_percent * pitch_mm) / 76.98)
       holeDiameter = majorDiameter - ((threadPercent * pitch) / 76.98);
     } else {
-      // hole_in = D_in - (thread_percent / (76.98 * TPI))
       holeDiameter = majorDiameter - (threadPercent / (76.98 * pitch));
     }
   } else if (tapType === 'forming') {
@@ -56,12 +51,11 @@ export function calculateTapDrill(input: TapDrillInput): TapDrillResult | null {
       formingMinHole = majorDiameter - (0.5 * pitch);
       formingMaxHole = majorDiameter - (0.375 * pitch);
     } else {
-      // P = 1/TPI
       const p = 1 / pitch;
       const k = 0.375 + ((threadPercent - 55) / 20) * 0.125;
       holeDiameter = majorDiameter - (k * p);
-      formingMinHole = majorDiameter - (0.5 * p); // D - 1/(2N)
-      formingMaxHole = majorDiameter - (0.375 * p); // D - 3/(8N)
+      formingMinHole = majorDiameter - (0.5 * p); 
+      formingMaxHole = majorDiameter - (0.375 * p); 
     }
   }
 
@@ -69,18 +63,16 @@ export function calculateTapDrill(input: TapDrillInput): TapDrillResult | null {
   
   let actualPercent = 0;
   if (closestDrill) {
+    const drillDia = unitSystem === 'metric' ? closestDrill.diameterMm : closestDrill.diameterIn;
     if (tapType === 'cutting') {
       if (unitSystem === 'metric') {
-        actualPercent = (76.98 / pitch) * (majorDiameter - closestDrill.diameter);
+        actualPercent = (76.98 / pitch) * (majorDiameter - drillDia);
       } else {
-        actualPercent = 76.98 * pitch * (majorDiameter - closestDrill.diameter);
+        actualPercent = 76.98 * pitch * (majorDiameter - drillDia);
       }
     } else if (tapType === 'forming') {
-       // Reverse interpolation for forming tap
        let p = unitSystem === 'metric' ? pitch : 1 / pitch;
-       let k = (majorDiameter - closestDrill.diameter) / p;
-       // k = 0.375 + ((threadPercent - 55) / 20) * 0.125
-       // (k - 0.375) / 0.125 = (threadPercent - 55) / 20
+       let k = (majorDiameter - drillDia) / p;
        actualPercent = 55 + ((k - 0.375) / 0.125) * 20;
     }
   }
@@ -89,7 +81,7 @@ export function calculateTapDrill(input: TapDrillInput): TapDrillResult | null {
     holeDiameter,
     closestStandardDrill: closestDrill,
     actualPercent: closestDrill ? actualPercent : undefined,
-    dimensionalDifference: closestDrill ? Math.abs(holeDiameter - closestDrill.diameter) : undefined,
+    dimensionalDifference: closestDrill ? Math.abs(holeDiameter - (unitSystem === 'metric' ? closestDrill.diameterMm : closestDrill.diameterIn)) : undefined,
     formingMinHole: tapType === 'forming' ? formingMinHole : undefined,
     formingMaxHole: tapType === 'forming' ? formingMaxHole : undefined,
   };

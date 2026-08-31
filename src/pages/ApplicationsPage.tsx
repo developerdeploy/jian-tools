@@ -14,7 +14,7 @@ const APPLICATIONS = [
     subtitle: 'Precision Holemaking for Tube Sheets',
     description: 'Heat exchanger manufacturing demands high-volume, deep-hole precision drilling. JIAN TOOLS provides engineered solutions for drilling tube sheets, baffle plates, and condenser components. Our modular and solid carbide tools ensure accurate hole tolerances, excellent surface finish, and maximized tool life even in tough materials like duplex stainless steel and titanium.',
     icon: <Settings className="w-6 h-6" />,
-    image: '/assets/images/applications/app_heat_exchanger_1787990207568.jpg',
+    image: '/assets/images/applications/app_heat_exchanger_1787990207568.webp',
     features: ['High penetration rates', 'Superior chip evacuation', 'Tight tolerance control (IT8-IT9)', 'Special geometries for stacked plates']
   },
   {
@@ -23,7 +23,7 @@ const APPLICATIONS = [
     subtitle: 'Heavy-Duty Holemaking for Beams & Columns',
     description: 'Structural steel fabrication requires robust tooling that can withstand interrupted cuts, hard spots, and varying material conditions. JIAN TOOLS modular crown drills are designed for fast, reliable drilling of I-beams, H-beams, and heavy structural plates. The rigid design prevents deflection and ensures stable machining even on portable magnetic drills or large CNC beam drill lines.',
     icon: <Factory className="w-6 h-6" />,
-    image: '/assets/images/applications/app_structural_steel_1787990219933.jpg',
+    image: '/assets/images/applications/app_structural_steel_1787990219933.webp',
     features: ['Vibration-resistant design', 'Quick-change replaceable heads', 'Optimized for low-power machines', 'Excellent performance in structural grade steel']
   },
   {
@@ -32,7 +32,7 @@ const APPLICATIONS = [
     subtitle: 'Efficient Multi-Layer & Thick Plate Drilling',
     description: 'Drilling thick plates or stacked multi-layer plates requires specific tool geometries to manage chip breaking and prevent chip packing. Our tooling solutions feature optimized flute designs and internal coolant holes to efficiently clear chips and dissipate heat, enabling high-speed drilling of boiler plates, base plates, and heavy fabrication components.',
     icon: <Layers className="w-6 h-6" />,
-    image: '/assets/images/applications/app_plate_drilling_1787990239256.jpg',
+    image: '/assets/images/applications/app_plate_drilling_1787990239256.webp',
     features: ['No chip packing in deep holes', 'Consistent hole size in stacked drilling', 'High feed rate capability', 'Longer tool life in hard plates']
   },
   {
@@ -41,7 +41,7 @@ const APPLICATIONS = [
     subtitle: 'Accurate Bolt-Hole Circles for Pipelines',
     description: 'Flange manufacturing relies heavily on the accuracy and speed of producing bolt hole circles. JIAN TOOLS delivers carbide drills and modular systems that provide exact positioning, roundness, and surface finish. Suitable for forged steel flanges, wind tower flanges, and large valve bodies, our tools reduce cycle times while maintaining strict industry standards.',
     icon: <ShieldCheck className="w-6 h-6" />,
-    image: '/assets/images/applications/app_flange_drilling_1787990263694.jpg',
+    image: '/assets/images/applications/app_flange_drilling_1787990263694.webp',
     features: ['Exceptional hole positioning accuracy', 'Reduced burr formation on exit', 'Self-centering geometries', 'Ideal for forged and cast materials']
   },
   {
@@ -50,7 +50,7 @@ const APPLICATIONS = [
     subtitle: 'Versatile Tooling for Large-Scale Fabrication',
     description: 'In heavy engineering, machining large components like gearboxes, earthmoving equipment frames, and energy sector parts presents unique challenges. We provide a comprehensive range of large diameter modular drills, deep hole drills, and custom combination tools to reduce tooling inventory and maximize productivity on large boring mills and gantry machines.',
     icon: <Wrench className="w-6 h-6" />,
-    image: '/assets/images/applications/app_heavy_engineering_1787990279767.jpg',
+    image: '/assets/images/applications/app_heavy_engineering_1787990279767.webp',
     features: ['Diameters up to 200mm available', 'Custom combination step drills', 'Rigid interfaces for heavy feeds', 'Complete technical support for complex setups']
   }
 ];
@@ -159,3 +159,4 @@ export const ApplicationsPage: React.FC<ApplicationsPageProps> = ({
     </div>
   );
 };
+
