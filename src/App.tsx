@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ThemeProvider } from './hooks/useTheme';
 import { Navbar, PageId } from './components/Navbar';
-import { LoadingScreen } from './components/LoadingScreen';
 import { HeroExperience } from './sections/HeroExperience';
 import { ModularCrownAssembly } from './components/ModularCrownAssembly';
 import { TubeSheetApplication } from './sections/TubeSheetApplication';
@@ -11,7 +10,10 @@ import { Footer } from './components/Footer';
 import { ProductCatalogue } from './pages/ProductCatalogue';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
+import { ApplicationsPage } from './pages/ApplicationsPage';
+import { TechnicalPage } from './pages/TechnicalPage';
 import { AnimationComingSoonPage } from './pages/AnimationComingSoonPage';
+import { CalculatorsPage } from './pages/CalculatorsPage';
 import { ProductDetailModal } from './components/ProductDetailModal';
 import { EnquiryModal } from './components/EnquiryModal';
 import { ToolingCalculatorModal } from './components/ToolingCalculatorModal';
@@ -19,9 +21,10 @@ import { WhatsAppFloatingButton } from './components/WhatsAppFloatingButton';
 import { JTProduct } from './data/jtProducts';
 
 const AppContent: React.FC = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<PageId>('home');
   const [catalogueInitialCategory, setCatalogueInitialCategory] = useState<string | null>(null);
+  const [appSectionSlug, setAppSectionSlug] = useState<string | null>(null);
+  const [techSectionSlug, setTechSectionSlug] = useState<string | null>(null);
   
   // Modals
   const [isEnquiryOpen, setIsEnquiryOpen] = useState<boolean>(false);
@@ -30,10 +33,12 @@ const AppContent: React.FC = () => {
   const [selectedEnquiryProduct, setSelectedEnquiryProduct] = useState<string | null>(null);
 
   const handleNavigate = (page: PageId, categorySlug?: string) => {
-    if (page === 'products' && categorySlug) {
-      setCatalogueInitialCategory(categorySlug);
-    } else if (page === 'products') {
-      setCatalogueInitialCategory('all');
+    if (page === 'products') {
+      setCatalogueInitialCategory(categorySlug || 'all');
+    } else if (page === 'applications') {
+      setAppSectionSlug(categorySlug || null);
+    } else if (page === 'technical') {
+      setTechSectionSlug(categorySlug || null);
     }
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -46,9 +51,6 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-[#F3F3F1] dark:bg-[#080A0C] text-[#080A0C] dark:text-[#E2E8F0] selection:bg-precision-blue/30 selection:text-white font-sans antialiased transition-colors duration-200">
-      {/* Minimal Loading Screen Overlay */}
-      {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
-
       {/* Floating Header with Navigation */}
       <Navbar
         currentPage={currentPage}
@@ -120,11 +122,40 @@ const AppContent: React.FC = () => {
         </main>
       )}
 
+      {currentPage === 'applications' && (
+        <main className="relative w-full">
+          <ApplicationsPage
+            onBackToHome={() => handleNavigate('home')}
+            onOpenEnquiry={handleOpenEnquiry}
+            initialSectionSlug={appSectionSlug}
+          />
+        </main>
+      )}
+
+      {currentPage === 'technical' && (
+        <main className="relative w-full">
+          <TechnicalPage
+            onBackToHome={() => handleNavigate('home')}
+            onOpenEnquiry={handleOpenEnquiry}
+            initialSectionSlug={techSectionSlug}
+          />
+        </main>
+      )}
+
       {currentPage === 'animation-soon' && (
         <main className="relative w-full">
           <AnimationComingSoonPage
             onBackToHome={() => handleNavigate('home')}
             onNavigateProducts={() => handleNavigate('products')}
+            onOpenEnquiry={() => handleOpenEnquiry()}
+          />
+        </main>
+      )}
+
+      {currentPage === 'calculators' && (
+        <main className="relative w-full">
+          <CalculatorsPage
+            onBackToHome={() => handleNavigate('home')}
             onOpenEnquiry={() => handleOpenEnquiry()}
           />
         </main>

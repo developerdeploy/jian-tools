@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { modularDrillVariations } from '../data/modularDrillData';
+import { CadModularDrillViewer } from './CadModularDrillViewer';
 import {
   Lock,
   Unlock,
@@ -7,9 +8,9 @@ import {
   Play,
   Pause,
   RotateCcw,
-  CheckCircle2,
   Sliders,
-  Layers
+  Layers,
+  Download
 } from 'lucide-react';
 
 interface ModularCrownAssemblyProps {
@@ -17,126 +18,68 @@ interface ModularCrownAssemblyProps {
 }
 
 export const ModularCrownAssembly: React.FC<ModularCrownAssemblyProps> = ({ onOpenEnquiry }) => {
-  const [selectedDepthIndex, setSelectedDepthIndex] = useState<number>(2); // Default to 3D
+  const [selectedDepthIndex, setSelectedDepthIndex] = useState<number>(2);
   const [isExploded, setIsExploded] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<'official-drill' | 'all-12-lineup'>('official-drill');
   
-  // 360° 3D Interactive Rotation State
-  const [rotationY, setRotationY] = useState<number>(0);
-  const [rotationX, setRotationX] = useState<number>(0);
   const [isAutoSpinning, setIsAutoSpinning] = useState<boolean>(false);
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-  const dragStartRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  const startRotRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [materialMode, setMaterialMode] = useState<'solid' | '3d-render'>('solid');
 
   const activeDrill = modularDrillVariations[selectedDepthIndex];
   const depthMultiplier = activeDrill.depthMultiplier;
-
-  // Auto-spin animation loop
-  useEffect(() => {
-    if (!isAutoSpinning || isDragging || activeTab !== 'official-drill' || isExploded) return;
-    const interval = setInterval(() => {
-      setRotationY((prev) => (prev + 1.0) % 360);
-    }, 30);
-    return () => clearInterval(interval);
-  }, [isAutoSpinning, isDragging, activeTab, isExploded]);
-
-  // Drag handlers for 3D interaction
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (activeTab !== 'official-drill' || isExploded) return;
-    setIsDragging(true);
-    setIsAutoSpinning(false);
-    dragStartRef.current = { x: e.clientX, y: e.clientY };
-    startRotRef.current = { x: rotationX, y: rotationY };
+  
+  const getModelUrl = (depthRatio: string) => {
+    const lower = depthRatio.toLowerCase();
+    return `/models/${lower}${['8d', '9d', '12d'].includes(lower) ? '.stp' : '.zip'}`;
   };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    const deltaX = e.clientX - dragStartRef.current.x;
-    const deltaY = e.clientY - dragStartRef.current.y;
-    
-    setRotationY((startRotRef.current.y + deltaX * 0.7 + 3600) % 360);
-    setRotationX(Math.max(-20, Math.min(20, startRotRef.current.x - deltaY * 0.4)));
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  // Touch handlers for mobile
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (activeTab !== 'official-drill' || isExploded) return;
-    setIsDragging(true);
-    setIsAutoSpinning(false);
-    dragStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-    startRotRef.current = { x: rotationX, y: rotationY };
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging) return;
-    const deltaX = e.touches[0].clientX - dragStartRef.current.x;
-    const deltaY = e.touches[0].clientY - dragStartRef.current.y;
-    
-    setRotationY((startRotRef.current.y + deltaX * 0.7 + 3600) % 360);
-    setRotationX(Math.max(-20, Math.min(20, startRotRef.current.x - deltaY * 0.4)));
-  };
-
-  const roundedDegrees = Math.round(rotationY);
-  const officialTransparentSrc = `/assets/images/modular-drills/official/transparent/${depthMultiplier}D.webp`;
 
   return (
     <section
       id="modular-drilling"
-      className="relative w-full py-24 bg-[#F3F3F1] dark:bg-[#080A0C] border-b border-black/[0.08] dark:border-white/[0.08] overflow-hidden"
+      className="relative w-full py-20 bg-white dark:bg-[#0a0a0a] overflow-hidden"
     >
-      {/* Subtle CAD Grid Backdrop */}
-      <div className="absolute inset-0 bg-cad-grid opacity-15 pointer-events-none" />
-
-      <div className="relative max-w-7xl mx-auto px-6 sm:px-12">
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-10">
         
-        {/* Section Editorial Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-6 border-b border-black/[0.08] dark:border-white/[0.08]">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-6 border-b border-gray-200 dark:border-white/10">
           <div>
-            <div className="flex items-center space-x-3 mb-3">
-              <span className="w-6 h-px bg-precision-blue" />
-              <span className="text-[11px] font-mono font-medium tracking-widest text-[#64748B] dark:text-[#94A3B8] uppercase">
-                02 / MODULAR DRILLING SYSTEM (1D – 12D)
-              </span>
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-[#080A0C] dark:text-white leading-none font-display">
-              MODULAR DRILLING. <br />
-              <span className="text-[#64748B] dark:text-[#94A3B8]">PRECISION & SPEED.</span>
+            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-gray-900 dark:text-white leading-tight font-display">
+              Modular Drilling System
+              <span className="block text-gray-400 dark:text-gray-500 text-xl sm:text-2xl mt-1">1D to 12D Depth Range</span>
             </h2>
           </div>
 
-          <div className="mt-4 md:mt-0 flex items-center space-x-2">
+          <div className="mt-4 md:mt-0 flex items-center space-x-3">
+            <a
+              href={getModelUrl(activeDrill.depthRatio)}
+              download
+              className="inline-flex items-center space-x-2 px-4 py-2 rounded-lg bg-precision-blue text-white text-sm font-medium transition-colors shadow-sm hover:bg-blue-600 cursor-pointer"
+            >
+              <Download className="w-4 h-4" />
+              <span>Download 3D Model</span>
+            </a>
+
             <button
               onClick={() => {
                 setIsExploded(!isExploded);
                 setActiveTab('official-drill');
               }}
-              className={`inline-flex items-center space-x-2 px-4 py-2 rounded-lg text-xs font-mono font-medium transition-colors border cursor-pointer ${
+              className={`inline-flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                 isExploded
-                  ? 'bg-precision-blue text-white border-precision-blue'
-                  : 'bg-white dark:bg-[#111417] text-[#080A0C] dark:text-white border-black/[0.1] dark:border-white/[0.1] hover:border-precision-blue'
+                  ? 'bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white shadow-inner'
+                  : 'bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/15'
               }`}
             >
               {isExploded ? (
-                <>
-                  <Lock className="w-3.5 h-3.5" />
-                  <span>LOCK ASSEMBLY</span>
-                </>
+                <><Lock className="w-4 h-4" /><span>Lock Assembly</span></>
               ) : (
-                <>
-                  <Unlock className="w-3.5 h-3.5" />
-                  <span>EXPLODE CROWN HEAD</span>
-                </>
+                <><Unlock className="w-4 h-4" /><span>Explode View</span></>
               )}
             </button>
           </div>
         </div>
 
-        {/* 1D to 12D Step Selector */}
+        {/* Depth Selector */}
         <div className="mb-6">
           <div className="grid grid-cols-6 sm:grid-cols-12 gap-1.5">
             {modularDrillVariations.map((drill, idx) => {
@@ -148,17 +91,15 @@ export const ModularCrownAssembly: React.FC<ModularCrownAssemblyProps> = ({ onOp
                     setSelectedDepthIndex(idx);
                     setActiveTab('official-drill');
                     setIsExploded(false);
-                    setRotationY(0);
-                    setRotationX(0);
                   }}
-                  className={`py-2 px-1 rounded-lg text-xs font-mono font-medium transition-all flex flex-col items-center justify-center border cursor-pointer ${
+                  className={`py-2 px-1 rounded-lg text-sm font-medium transition-all flex flex-col items-center justify-center cursor-pointer ${
                     isSelected
-                      ? 'bg-precision-blue text-white border-precision-blue shadow-sm'
-                      : 'bg-white dark:bg-[#111417] text-[#64748B] dark:text-[#94A3B8] border-black/[0.08] dark:border-white/[0.08] hover:border-black/[0.2] dark:hover:border-white/[0.2] hover:text-[#080A0C] dark:hover:text-white'
+                      ? 'bg-precision-blue text-white shadow-sm'
+                      : 'bg-gray-50 dark:bg-white/5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10 hover:text-gray-900 dark:hover:text-white'
                   }`}
                 >
-                  <span className="font-bold">{drill.depthRatio}</span>
-                  <span className={`text-[9px] mt-0.5 ${isSelected ? 'text-white/80' : 'text-[#64748B]'}`}>
+                  <span className="font-bold text-xs">{drill.depthRatio}</span>
+                  <span className={`text-[9px] mt-0.5 ${isSelected ? 'text-white/80' : ''}`}>
                     {drill.depthMultiplier}D
                   </span>
                 </button>
@@ -167,61 +108,27 @@ export const ModularCrownAssembly: React.FC<ModularCrownAssemblyProps> = ({ onOp
           </div>
         </div>
 
-        {/* Main Stage & Parameters Matrix */}
+        {/* Main Stage */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           
-          {/* Left Column: Official Drill High-Resolution CAD Stage */}
-          <div className="lg:col-span-7 rounded-xl bg-white dark:bg-[#111417] border border-black/[0.08] dark:border-white/[0.08] p-6 flex flex-col justify-between relative overflow-hidden select-none min-h-[500px]">
+          {/* Left: Drill Display */}
+          <div className="lg:col-span-7 rounded-xl bg-gray-50 dark:bg-[#141414] border border-gray-200 dark:border-white/10 p-6 flex flex-col justify-between relative overflow-hidden select-none min-h-[500px]">
             
-            {/* Top Coordinate Header */}
-            <div className="flex items-center justify-between text-[10px] font-mono text-[#64748B] dark:text-[#94A3B8] border-b border-black/[0.06] dark:border-white/[0.06] pb-3 mb-2">
-              <span className="font-medium uppercase">
-                SPECIMEN: JIAN.DRILL_{depthMultiplier}D // {activeDrill.maxHoleDepth}
-              </span>
-              
-              <div className="flex items-center space-x-2">
-                <span className="px-2 py-0.5 rounded bg-black/[0.04] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.06] text-[#080A0C] dark:text-white font-bold">
-                  {roundedDegrees}° ROTATION
-                </span>
-                <span className={`px-2 py-0.5 rounded font-bold ${
-                  !isExploded
-                    ? 'bg-black/[0.04] dark:bg-white/[0.04] text-[#080A0C] dark:text-white'
-                    : 'bg-precision-blue text-white'
-                }`}>
-                  {!isExploded ? 'LOCKED' : 'EXPLODED'}
-                </span>
-              </div>
-            </div>
-
-            {/* Drill Canvas Display Stage */}
+            {/* Drill Canvas */}
             <div
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseUp}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleMouseUp}
-              className="relative w-full h-[360px] flex items-center justify-center my-2 overflow-hidden rounded-lg bg-black/[0.02] dark:bg-black/40 border border-black/[0.04] dark:border-white/[0.04] p-4 cursor-grab active:cursor-grabbing group"
+              className="relative w-full h-[360px] flex items-center justify-center my-2 overflow-hidden rounded-lg p-4"
               style={{ perspective: 1200 }}
             >
               {isExploded ? (
-                /* Exploded View */
                 <div className="relative flex items-center justify-center h-full w-full animate-fade-in">
                   <img
                     src="/assets/images/modular-drills/modular-drill-exploded-3d.webp"
-                    alt="Modular Crown Drill 3D Exploded Engineering CAD"
-                    className="h-full max-w-full object-contain filter contrast-125 hover:scale-105 transition-transform duration-300"
+                    alt="Modular Crown Drill Exploded View"
+                    className="h-full max-w-full object-contain hover:scale-105 transition-transform duration-300"
                     draggable={false}
                   />
-
-                  <div className="absolute top-3 right-3 p-2 rounded bg-black/85 backdrop-blur border border-white/10 text-white text-[10px] font-mono pointer-events-none">
-                    <div className="text-precision-blue font-bold">140° CROWN HEAD // EXPLODED</div>
-                    <div className="text-[#94A3B8] mt-0.5">Cam-Lock Head Replacement on Spindle</div>
-                  </div>
                 </div>
               ) : activeTab === 'all-12-lineup' ? (
-                /* All 12 Official Drills Lineup */
                 <div className="relative flex items-end justify-between h-full w-full overflow-x-auto space-x-2 px-2 py-4 animate-fade-in">
                   {modularDrillVariations.map((d) => (
                     <div
@@ -230,145 +137,139 @@ export const ModularCrownAssembly: React.FC<ModularCrownAssemblyProps> = ({ onOp
                         setSelectedDepthIndex(d.depthMultiplier - 1);
                         setActiveTab('official-drill');
                       }}
-                      className="flex flex-col items-center cursor-pointer group/item h-full justify-end hover:scale-105 transition-transform shrink-0"
+                      className="flex flex-col items-center cursor-pointer hover:scale-105 transition-transform shrink-0 h-full justify-end"
                       style={{ width: '45px' }}
                     >
                       <img
                         src={`/assets/images/modular-drills/official/transparent/${d.depthMultiplier}D.webp`}
                         alt={`Drill ${d.depthRatio}`}
-                        className="h-60 object-contain filter contrast-125 drop-shadow-[0_8px_16px_rgba(0,0,0,0.3)]"
+                        className="h-60 object-contain"
                       />
-                      <span className="text-[9px] font-mono font-bold text-[#080A0C] dark:text-[#94A3B8] mt-2">
+                      <span className="text-[10px] font-medium text-gray-500 dark:text-gray-400 mt-2">
                         {d.depthRatio}
                       </span>
                     </div>
                   ))}
                 </div>
               ) : (
-                /* Official Real Reference Drill with 3D Interaction */
-                <div
-                  className="relative flex items-center justify-center h-full w-full transition-transform duration-75 ease-out"
-                  style={{
-                    transform: `rotateY(${rotationY}deg) rotateX(${rotationX}deg)`,
-                    transformStyle: 'preserve-3d'
-                  }}
-                >
-                  <img
-                    key={activeDrill.depthRatio}
-                    src={officialTransparentSrc}
-                    alt={`Official JIAN Modular Crown Drill ${activeDrill.depthRatio}`}
-                    className="h-full max-w-full object-contain filter contrast-120 drop-shadow-[0_12px_24px_rgba(0,0,0,0.35)] dark:drop-shadow-[0_0_20px_rgba(255,255,255,0.06)]"
-                    draggable={false}
-                  />
-                </div>
+                <CadModularDrillViewer
+                  depthMultiplier={depthMultiplier}
+                  isAutoSpinning={isAutoSpinning}
+                  materialMode={materialMode}
+                />
               )}
 
-              {/* Drag Prompt */}
               {!isExploded && activeTab === 'official-drill' && (
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center space-x-1.5 bg-[#080A0C]/90 backdrop-blur text-white text-[10px] font-mono px-3 py-1 rounded-full pointer-events-none border border-white/10">
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center space-x-1.5 bg-gray-900/80 text-white text-xs px-3 py-1 rounded-full pointer-events-none z-10">
                   <Rotate3d className="w-3 h-3 text-precision-blue" />
-                  <span>DRAG TO ROTATE // {activeDrill.depthRatio}</span>
+                  <span>Drag to rotate • Pinch to zoom</span>
                 </div>
               )}
             </div>
 
-            {/* Bottom Controls Bar */}
-            <div className="flex items-center justify-between pt-3 border-t border-black/[0.06] dark:border-white/[0.06] text-xs font-mono">
+            {/* Bottom Controls */}
+            <div className="flex flex-col sm:flex-row items-center justify-between pt-3 border-t border-gray-200 dark:border-white/10 text-sm gap-3">
               <div className="flex items-center space-x-2">
                 <button
                   onClick={() => setIsAutoSpinning(!isAutoSpinning)}
-                  className="flex items-center space-x-1.5 px-3 py-1.5 rounded-md bg-black/[0.04] dark:bg-white/[0.04] hover:bg-black/[0.08] dark:hover:bg-white/[0.08] text-[#080A0C] dark:text-white transition-colors font-medium cursor-pointer"
+                  className="flex items-center space-x-1.5 px-3 py-1.5 rounded-md bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 transition-colors cursor-pointer"
                 >
                   {isAutoSpinning ? (
-                    <>
-                      <Pause className="w-3 h-3 text-precision-blue" />
-                      <span>PAUSE</span>
-                    </>
+                    <><Pause className="w-3 h-3 text-precision-blue" /><span>Pause Spin</span></>
                   ) : (
-                    <>
-                      <Play className="w-3 h-3 text-precision-blue" />
-                      <span>AUTO-SPIN</span>
-                    </>
+                    <><Play className="w-3 h-3 text-precision-blue" /><span>Auto Spin</span></>
                   )}
-                </button>
-
-                <button
-                  onClick={() => {
-                    setRotationY(0);
-                    setRotationX(0);
-                  }}
-                  className="p-1.5 rounded-md bg-black/[0.04] dark:bg-white/[0.04] hover:bg-black/[0.08] dark:hover:bg-white/[0.08] text-[#64748B] dark:text-[#94A3B8] cursor-pointer"
-                  title="Reset Angle"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
                 </button>
               </div>
 
-              <div className="flex items-center space-x-2 text-[10px] font-bold">
+              {activeTab === 'official-drill' && (
+                <div className="flex bg-gray-100 dark:bg-white/5 rounded-md p-1 overflow-x-auto whitespace-nowrap">
+                  <button
+                    onClick={() => setMaterialMode('solid')}
+                    className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors ${
+                      materialMode === 'solid'
+                        ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
+                        : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                    }`}
+                  >
+                    Solid View
+                  </button>
+                  <button
+                    onClick={() => setMaterialMode('3d-render')}
+                    className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors ${
+                      materialMode === '3d-render'
+                        ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
+                        : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                    }`}
+                  >
+                    3D Render View
+                  </button>
+                </div>
+              )}
+
+              <div className="flex items-center space-x-2 bg-gray-100 dark:bg-white/5 rounded-md p-1">
                 <button
                   onClick={() => {
-                    setActiveTab(activeTab === 'official-drill' ? 'all-12-lineup' : 'official-drill');
+                    setActiveTab('official-drill');
                     setIsExploded(false);
                   }}
-                  className="px-3 py-1.5 rounded-md bg-black/[0.04] dark:bg-white/[0.04] hover:bg-black/[0.08] dark:hover:bg-white/[0.08] text-[#080A0C] dark:text-white cursor-pointer"
+                  className={`px-3 py-1.5 rounded-md text-xs font-bold transition-colors cursor-pointer ${
+                    activeTab === 'official-drill'
+                      ? 'bg-white dark:bg-gray-700 text-precision-blue shadow-sm'
+                      : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
+                  }`}
                 >
-                  {activeTab === 'official-drill' ? 'VIEW ALL 12 BITS' : 'SINGLE BIT 3D'}
+                  Interactive 3D
+                </button>
+                <button
+                  onClick={() => {
+                    setActiveTab('all-12-lineup');
+                    setIsExploded(false);
+                  }}
+                  className={`px-3 py-1.5 rounded-md text-xs font-bold transition-colors cursor-pointer ${
+                    activeTab === 'all-12-lineup'
+                      ? 'bg-white dark:bg-gray-700 text-precision-blue shadow-sm'
+                      : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
+                  }`}
+                >
+                  View All 12
                 </button>
               </div>
             </div>
 
           </div>
 
-          {/* Right Column: Engineering Metrics */}
-          <div className="lg:col-span-5 rounded-xl bg-white dark:bg-[#111417] border border-black/[0.08] dark:border-white/[0.08] p-6 sm:p-8 flex flex-col justify-between">
+          {/* Right: Specs */}
+          <div className="lg:col-span-5 rounded-xl bg-white dark:bg-[#141414] border border-gray-200 dark:border-white/10 p-6 sm:p-8 flex flex-col justify-between">
             <div>
-              <div className="text-[10px] font-mono text-precision-blue font-bold tracking-widest uppercase mb-2">
-                // SPECIFICATION METRICS
-              </div>
-
-              <h3 className="text-xl sm:text-2xl font-bold text-[#080A0C] dark:text-white mb-4 font-display">
-                Replaceable Crown Cutting Geometry
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 font-display">
+                Replaceable Type Modular Drills
               </h3>
 
-              <div className="space-y-2.5 mb-6 font-mono text-xs">
-                <div className="p-3 rounded-lg bg-black/[0.02] dark:bg-black/30 border border-black/[0.06] dark:border-white/[0.06] flex items-center justify-between">
-                  <span className="text-[#64748B] dark:text-[#94A3B8]">Reach Ratio:</span>
-                  <span className="font-bold text-[#080A0C] dark:text-white">{activeDrill.depthRatio} ({activeDrill.depthMultiplier}× Dia)</span>
+              <div className="space-y-2.5 mb-6 text-sm">
+                <div className="p-3 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-between">
+                  <span className="text-gray-500 dark:text-gray-400">Reach Ratio</span>
+                  <span className="font-semibold text-gray-900 dark:text-white">{activeDrill.depthRatio} ({activeDrill.depthMultiplier}× Dia)</span>
                 </div>
 
-                <div className="p-3 rounded-lg bg-black/[0.02] dark:bg-black/30 border border-black/[0.06] dark:border-white/[0.06] flex items-center justify-between">
-                  <span className="text-[#64748B] dark:text-[#94A3B8]">Diameter Range:</span>
-                  <span className="font-bold text-[#080A0C] dark:text-white">{activeDrill.diameterRange}</span>
+                <div className="p-3 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-between">
+                  <span className="text-gray-500 dark:text-gray-400">Drill dia Range : </span>
+                  <span className="font-semibold text-gray-900 dark:text-white">8.00 to 52.00 mm</span>
                 </div>
 
-                <div className="p-3 rounded-lg bg-black/[0.02] dark:bg-black/30 border border-black/[0.06] dark:border-white/[0.06] flex items-center justify-between">
-                  <span className="text-[#64748B] dark:text-[#94A3B8]">Coolant System:</span>
-                  <span className="font-bold text-precision-blue">Dual Internal Ports</span>
-                </div>
-              </div>
-
-              <div className="space-y-2.5 font-mono text-xs text-[#2D3748] dark:text-[#94A3B8]">
-                <div className="flex items-center space-x-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-precision-blue shrink-0" />
-                  <span>Cam-lock head swap without resetting machine datums</span>
-                </div>
-                <div className="flex items-center space-x-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-precision-blue shrink-0" />
-                  <span>Self-centering 140° crown tip prevents hole deflection</span>
-                </div>
-                <div className="flex items-center space-x-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-precision-blue shrink-0" />
-                  <span>High-feed machining for boiler and tube-sheet stacks</span>
+                <div className="p-3 rounded-lg bg-gray-50 dark:bg-white/5 flex items-center justify-between">
+                  <span className="text-gray-500 dark:text-gray-400">Coolant System</span>
+                  <span className="font-semibold text-precision-blue">Internal Coolant</span>
                 </div>
               </div>
             </div>
 
-            <div className="pt-6 mt-6 border-t border-black/[0.06] dark:border-white/[0.06]">
+            <div className="pt-6 mt-6 border-t border-gray-200 dark:border-white/10">
               <button
                 onClick={() => onOpenEnquiry(`Modular Drill ${activeDrill.depthRatio}`)}
-                className="w-full py-3 rounded-lg bg-precision-blue hover:bg-blue-600 text-white text-xs font-mono font-medium tracking-wider uppercase transition-colors cursor-pointer border border-blue-400/30"
+                className="w-full py-3 rounded-lg bg-precision-blue hover:bg-blue-700 text-white text-sm font-medium transition-colors cursor-pointer"
               >
-                REQUEST QUOTE FOR {activeDrill.depthRatio}
+                Request Quote for {activeDrill.depthRatio}
               </button>
             </div>
 

@@ -1,142 +1,200 @@
-import React from 'react';
-import { ArrowRight, CheckCircle2, Factory, Layers, ShieldCheck } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { CheckCircle2, ChevronRight, ChevronLeft, ArrowRight } from 'lucide-react';
 
 interface TubeSheetApplicationProps {
   onOpenCatalogue: (categorySlug?: string) => void;
   onOpenEnquiry: (productName?: string) => void;
 }
 
+const TUBE_SHEET_IMAGES = [
+  '/assets/images/tube-sheet/1.webp',
+  '/assets/images/tube-sheet/2.webp',
+  '/assets/images/tube-sheet/3.webp',
+  '/assets/images/tube-sheet/4.webp',
+  '/assets/images/tube-sheet/5.webp',
+  '/assets/images/tube-sheet/6.webp',
+  '/assets/images/tube-sheet/7.webp',
+];
+
+const EXPERTISE_CATEGORIES = [
+  {
+    title: 'HEAT EXCHANGER DRILLING',
+    subtitle: 'Precision Drilling for Tube Sheet Applications',
+    description: 'Tube sheet drilling demands accuracy, consistency and process reliability. JIAN TOOLS provides modular drilling solutions designed specifically for high-volume and precision hole-making applications in heat exchanger manufacturing. Our solutions are suitable for drilling tube sheets, plates, baffles and related heat exchanger components.',
+    features: ['High hole accuracy and consistency', 'Efficient chip evacuation', 'Reduced machining time', 'Replaceable cutting elements', 'Cost-effective tooling', 'Suitable for CNC/VMC/HMC machine', 'Solutions for different hole diameters and depths'],
+    footer: 'Heat Exchangers | Condensers | Pressure Vessels | Tube Sheets | Baffles | Industrial Fabrication',
+  },
+  {
+    title: 'STRUCTURAL STEEL DRILLING',
+    subtitle: 'Fast & Reliable Drilling for Heavy Fabrication',
+    description: 'Structural steel applications require high productivity, tool strength and consistent hole quality. JIAN TOOLS modular drilling systems are designed to deliver reliable performance across a wide range of structural-steel components.',
+    features: ['Structural plates', 'Beams & columns', 'Flanges', 'Base plates', 'Tower structures', 'Fabricated steel components', 'Heavy engineering components'],
+    footer: null,
+  },
+  {
+    title: 'CUSTOM DRILLING SOLUTIONS',
+    subtitle: 'One Tool. Multiple Diameters. Maximum Flexibility.',
+    description: 'JIAN TOOLS modular drills are designed to provide a flexible and economical solution for industrial drilling applications. With replaceable cutting components, the system allows users to achieve different hole diameters while reducing tooling inventory and overall machining costs.',
+    features: ['Replaceable cutting cartridges', 'Multiple diameter options', 'Reduced tooling cost', 'Reduced inventory', 'Easy maintenance', 'High drilling productivity', 'Suitable for CNC / VMC / HMC machines'],
+    footer: null,
+  },
+];
+
 export const TubeSheetApplication: React.FC<TubeSheetApplicationProps> = ({
   onOpenCatalogue,
   onOpenEnquiry
 }) => {
-  return (
-    <section className="relative w-full py-24 bg-[#F3F3F1] dark:bg-[#080A0C] border-b border-black/[0.08] dark:border-white/[0.08] overflow-hidden">
-      
-      {/* Background CAD Grid */}
-      <div className="absolute inset-0 bg-cad-grid opacity-15 pointer-events-none" />
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [activeExpertiseIndex, setActiveExpertiseIndex] = useState(0);
+  const activeExpertise = EXPERTISE_CATEGORIES[activeExpertiseIndex];
 
+  // Auto-rotate images every 4 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % TUBE_SHEET_IMAGES.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextExpertise = () => setActiveExpertiseIndex((prev) => (prev + 1) % EXPERTISE_CATEGORIES.length);
+  const prevExpertise = () => setActiveExpertiseIndex((prev) => (prev - 1 + EXPERTISE_CATEGORIES.length) % EXPERTISE_CATEGORIES.length);
+
+  return (
+    <section className="relative w-full py-24 bg-[#F8F9FA] dark:bg-[#07090B] border-y border-gray-200 dark:border-white/5 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-6 sm:px-12">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-black/[0.08] dark:border-white/[0.08]">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-gray-200 dark:border-white/10">
           <div>
             <div className="flex items-center space-x-3 mb-3">
-              <span className="w-6 h-px bg-precision-blue" />
-              <span className="text-[11px] font-mono font-medium tracking-widest text-[#64748B] dark:text-[#94A3B8] uppercase">
-                03 / APPLICATION STORY // TUBE SHEET & BAFFLE DRILLING
+              <span className="w-8 h-px bg-precision-blue" />
+              <span className="text-[11px] font-mono font-bold tracking-widest text-slate-500 uppercase">
+                OUR STRENGTH // OUR CORE EXPERTISE
               </span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-[#080A0C] dark:text-white leading-none font-display">
-              HIGH-VOLUME DRILLING. <br />
-              <span className="text-[#64748B] dark:text-[#94A3B8]">ZERO SCRAP TOLERANCE.</span>
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white leading-tight font-display">
+              Tube Sheet & Baffle Drilling
             </h2>
           </div>
-
-          <div className="mt-4 md:mt-0 max-w-md">
-            <p className="text-xs sm:text-sm text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
-              Drilling thousands of contiguous holes in boiler tube sheets, heat exchangers, and stacked baffle plates demands rigid modular drill bodies that eliminate hole bell-mouthing and drift.
+          <div className="mt-4 md:mt-0 max-w-lg">
+            <p className="text-sm sm:text-base text-slate-600 dark:text-gray-400 leading-relaxed">
+              At JIAN TOOLS, we specialize in modular drilling solutions for demanding industrial applications.
             </p>
           </div>
         </div>
 
-        {/* 2-Column Split: Editorial Case Study & Real Factory Photography */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           
-          {/* Left: Main Feature Photo & Metrics */}
-          <div className="lg:col-span-7 rounded-xl bg-white dark:bg-[#111417] border border-black/[0.08] dark:border-white/[0.08] p-6 flex flex-col justify-between">
-            <div className="relative rounded-lg overflow-hidden bg-black mb-6 border border-black/[0.06] dark:border-white/[0.06] group">
+          {/* Left: Auto-scrolling Image Gallery */}
+          <div className="lg:col-span-5 relative rounded-2xl overflow-hidden shadow-lg" style={{ minHeight: 420 }}>
+            {TUBE_SHEET_IMAGES.map((img, idx) => (
               <img
-                src="/assets/images/tube-sheet/73cfe0c5-37c2-4152-b9ae-39d98e072ca1.webp"
-                alt="Stacked Baffle Plate Drilling in Production"
-                className="w-full h-80 sm:h-96 object-cover filter contrast-110 group-hover:scale-105 transition-transform duration-500"
+                key={idx}
+                src={img}
+                alt={`Application slide ${idx + 1}`}
+                className={`absolute inset-0 w-full h-full object-contain bg-white dark:bg-[#111] transition-opacity duration-1000 ${
+                  idx === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                }`}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
-              
-              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white font-mono text-[11px]">
-                <span className="bg-black/80 backdrop-blur px-3 py-1 rounded border border-white/10 font-bold">
-                  BAFFLE STACK MULTI-LAYER DRILLING
-                </span>
-                <span className="text-precision-blue font-bold">ASTM A516 / SS304</span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-3 gap-3 font-mono text-center">
-              <div className="p-3 rounded-lg bg-black/[0.02] dark:bg-black/30 border border-black/[0.06] dark:border-white/[0.06]">
-                <div className="text-[9px] text-[#64748B] dark:text-[#94A3B8] font-bold">HOLE ACCURACY</div>
-                <div className="text-sm font-black text-[#080A0C] dark:text-white mt-1">H7 / H8</div>
-              </div>
-              <div className="p-3 rounded-lg bg-black/[0.02] dark:bg-black/30 border border-black/[0.06] dark:border-white/[0.06]">
-                <div className="text-[9px] text-[#64748B] dark:text-[#94A3B8] font-bold">SURFACE FINISH</div>
-                <div className="text-sm font-black text-precision-blue mt-1">Ra 1.6 μm</div>
-              </div>
-              <div className="p-3 rounded-lg bg-black/[0.02] dark:bg-black/30 border border-black/[0.06] dark:border-white/[0.06]">
-                <div className="text-[9px] text-[#64748B] dark:text-[#94A3B8] font-bold">SPINDLE DOWNTIME</div>
-                <div className="text-sm font-black text-precision-blue mt-1">&lt; 30 Sec Swap</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right: Technical Narrative & Factory Assets */}
-          <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
+            ))}
             
-            <div className="p-6 sm:p-8 rounded-xl bg-white dark:bg-[#111417] border border-black/[0.08] dark:border-white/[0.08]">
-              <div className="flex items-center space-x-2 text-xs font-mono text-precision-blue font-bold mb-2">
-                <Factory className="w-4 h-4" />
-                <span>SOLVING MACHINING BOTTLENECKS</span>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#080A0C] dark:text-white mb-3 font-display">
-                Eliminate Re-clamping & Presetting
-              </h3>
-              <p className="text-xs sm:text-sm text-[#64748B] dark:text-[#94A3B8] leading-relaxed mb-6">
-                When drilling arrays of 5,000+ holes in thick tube sheets, tool wear causes downtime. JIAN TOOLS modular crown drills allow indexable cutting head replacement right in the spindle without resetting machine datums.
-              </p>
+            {/* Gallery Dots */}
+            <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2 z-10">
+              {TUBE_SHEET_IMAGES.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentImageIndex(idx)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    idx === currentImageIndex ? 'w-6 bg-precision-blue' : 'bg-black/30 dark:bg-white/40 hover:bg-black/50 dark:hover:bg-white/60'
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
+          </div>
 
-              <div className="space-y-2.5 font-mono text-xs text-[#2D3748] dark:text-[#94A3B8]">
-                <div className="flex items-center space-x-2.5 p-2.5 rounded-lg bg-black/[0.02] dark:bg-black/30 border border-black/[0.06] dark:border-white/[0.06]">
-                  <CheckCircle2 className="w-4 h-4 text-precision-blue shrink-0" />
-                  <span>Self-centering 140° crown tip prevents hole walking</span>
-                </div>
-                <div className="flex items-center space-x-2.5 p-2.5 rounded-lg bg-black/[0.02] dark:bg-black/30 border border-black/[0.06] dark:border-white/[0.06]">
-                  <CheckCircle2 className="w-4 h-4 text-precision-blue shrink-0" />
-                  <span>Dual internal coolant ports clear swarf chips</span>
-                </div>
-                <div className="flex items-center space-x-2.5 p-2.5 rounded-lg bg-black/[0.02] dark:bg-black/30 border border-black/[0.06] dark:border-white/[0.06]">
-                  <CheckCircle2 className="w-4 h-4 text-precision-blue shrink-0" />
-                  <span>Bodies available from 1D up to 12D reach ratios</span>
-                </div>
-              </div>
+          {/* Right: Expertise Category Carousel */}
+          <div className="lg:col-span-7 flex flex-col">
+            
+            {/* Carousel Tab Buttons */}
+            <div className="flex items-center space-x-1 mb-6 border-b border-gray-200 dark:border-white/10 pb-4">
+              {EXPERTISE_CATEGORIES.map((cat, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveExpertiseIndex(idx)}
+                  className={`px-4 py-2.5 rounded-lg text-xs font-bold tracking-wide transition-all duration-200 cursor-pointer ${
+                    idx === activeExpertiseIndex
+                      ? 'bg-precision-blue text-white shadow-md'
+                      : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-400 hover:bg-slate-200 dark:hover:bg-white/10'
+                  }`}
+                >
+                  {cat.title.split(' ').slice(0, 2).join(' ')}
+                </button>
+              ))}
             </div>
 
-            {/* Sub-gallery of factory photos */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="relative rounded-lg overflow-hidden bg-black h-36 border border-black/[0.08] dark:border-white/[0.08] group">
-                <img
-                  src="/assets/images/tube-sheet/dede5817-acb0-4eea-975d-6a67f7d3a522.webp"
-                  alt="Stacked Baffle Sheet"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-                <span className="absolute bottom-2 left-2 text-[10px] font-mono text-white font-bold">
-                  STACKED BAFFLE HOLES
-                </span>
+            {/* Active Category Content */}
+            <div className="flex-1 flex flex-col justify-between">
+              <div>
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-display mb-1">
+                  {activeExpertise.title}
+                </h3>
+                <p className="text-precision-blue font-semibold text-sm mb-4">{activeExpertise.subtitle}</p>
+                
+                <p className="text-sm text-slate-600 dark:text-gray-400 leading-relaxed mb-5">
+                  {activeExpertise.description}
+                </p>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 mb-5">
+                  {activeExpertise.features.map((feat, i) => (
+                    <div key={i} className="flex items-start space-x-2 text-sm text-slate-700 dark:text-gray-300">
+                      <CheckCircle2 className="w-4 h-4 text-precision-blue shrink-0 mt-0.5" />
+                      <span>{feat}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {activeExpertise.footer && (
+                  <div className="text-xs text-slate-500 bg-slate-100 dark:bg-white/5 p-3 rounded border border-slate-200 dark:border-white/10 mb-5">
+                    <span className="font-bold text-slate-700 dark:text-gray-300">Typical Applications:</span><br/>
+                    {activeExpertise.footer}
+                  </div>
+                )}
               </div>
 
-              <div className="relative rounded-lg overflow-hidden bg-black h-36 border border-black/[0.08] dark:border-white/[0.08] group">
-                <img
-                  src="/assets/images/tube-sheet/perforated-plate-drillings.webp"
-                  alt="Perforated Plate Drilling"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-                <span className="absolute bottom-2 left-2 text-[10px] font-mono text-white font-bold">
-                  PERFORATED PLATES
-                </span>
+              {/* Navigation + CTA */}
+              <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-white/10 mt-auto">
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={prevExpertise}
+                    className="p-2 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-600 dark:text-gray-400 transition-colors cursor-pointer"
+                    aria-label="Previous category"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <span className="text-xs font-mono text-slate-400 dark:text-gray-500">
+                    {activeExpertiseIndex + 1} / {EXPERTISE_CATEGORIES.length}
+                  </span>
+                  <button
+                    onClick={nextExpertise}
+                    className="p-2 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-600 dark:text-gray-400 transition-colors cursor-pointer"
+                    aria-label="Next category"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+                
+                <button
+                  onClick={() => onOpenEnquiry('Modular Drilling Solutions')}
+                  className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-lg bg-precision-blue hover:bg-blue-700 text-white text-sm font-medium transition-colors cursor-pointer"
+                >
+                  <span>Request Custom Tooling</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
               </div>
             </div>
 
           </div>
-
         </div>
 
       </div>

@@ -41,20 +41,16 @@ export default {
         }
       },
       fontFamily: {
-        sans: ["'Plus Jakarta Sans'", "Inter", "system-ui", "-apple-system", "sans-serif"],
-        display: ["'Space Grotesk'", "'Plus Jakarta Sans'", "sans-serif"],
-        mono: ["'JetBrains Mono'", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
+        sans: ["'Roboto'", "system-ui", "-apple-system", "sans-serif"],
+        display: ["'Roboto Condensed'", "'Roboto'", "sans-serif"],
+        mono: ["'Roboto'", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
       },
       letterSpacing: {
         tightest: "-0.04em",
         tighter: "-0.02em",
-        technical: "0.20em",
-        cad: "0.25em",
-        loose: "0.12em",
       },
       animation: {
         'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'scanline': 'scan 4s linear infinite',
         'float': 'float 6s ease-in-out infinite',
       },
       keyframes: {

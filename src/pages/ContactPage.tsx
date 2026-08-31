@@ -84,7 +84,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                 </p>
               </div>
               <span className="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded bg-black/[0.04] dark:bg-white/[0.04] text-precision-blue border border-precision-blue/20">
-                SLA: 4 HRS
+                SLA: 24 HRS
               </span>
             </div>
 

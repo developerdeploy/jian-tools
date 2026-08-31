@@ -50,24 +50,21 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               onClick={() => setIsZoomed(!isZoomed)}
               className="relative w-full h-80 sm:h-96 rounded-lg bg-black/[0.02] dark:bg-black/40 border border-black/[0.06] dark:border-white/[0.06] flex items-center justify-center p-6 cursor-zoom-in overflow-hidden group"
             >
-              <picture>
-                <source
-                  type="image/webp"
-                  srcSet={`
-                    ${currentImg.w600} 600w,
-                    ${currentImg.w1200} 1200w,
-                    ${currentImg.original} 4096w
-                  `}
-                  sizes="(max-width: 640px) 600px, 1200px"
-                />
-                <img
-                  src={currentImg.w1200}
-                  alt={product.name}
-                  className={`w-full h-full object-contain filter contrast-110 transition-transform duration-300 ${
-                    isZoomed ? 'scale-150 cursor-zoom-out' : 'group-hover:scale-105'
-                  }`}
-                />
-              </picture>
+              <img
+                src={currentImg?.w1200 || currentImg?.original || ''}
+                srcSet={currentImg ? `${currentImg.w600} 600w, ${currentImg.w1200} 1200w, ${currentImg.original} 2048w` : undefined}
+                sizes="(max-width: 640px) 600px, 1200px"
+                alt={product.name}
+                className={`w-full h-full object-contain filter contrast-110 transition-transform duration-300 ${
+                  isZoomed ? 'scale-150 cursor-zoom-out' : 'group-hover:scale-105'
+                }`}
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (currentImg?.original && target.src !== currentImg.original) {
+                    target.src = currentImg.original;
+                  }
+                }}
+              />
 
               <div className="absolute bottom-3 right-3 bg-[#080A0C]/90 text-white text-[10px] font-mono px-2.5 py-1 rounded flex items-center space-x-1.5 border border-white/10">
                 <ZoomIn className="w-3 h-3 text-precision-blue" />

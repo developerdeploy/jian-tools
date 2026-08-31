@@ -52,3 +52,9 @@ dist-ssr
 !/public/**
 
 
+
+scratch/
+extracted_models/
+*.zip
+*.png
+

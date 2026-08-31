@@ -185,6 +185,66 @@ export const AboutPage: React.FC<AboutPageProps> = ({
 
         </div>
 
+        {/* OUR CORE EXPERTISE */}
+        <div className="mt-16 pt-16 border-t border-black/[0.08] dark:border-white/[0.08]">
+          <div className="flex items-center space-x-3 mb-8">
+            <span className="w-6 h-px bg-precision-blue" />
+            <span className="text-[11px] font-mono font-medium tracking-widest text-[#64748B] dark:text-[#94A3B8] uppercase">
+              OUR STRENGTH // OUR CORE EXPERTISE
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <div className="lg:col-span-4">
+              <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-[#080A0C] dark:text-white leading-tight mb-4 font-display">
+                Specialized in Modular Drilling Solutions.
+              </h2>
+              <p className="text-sm sm:text-base text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+                At JIAN TOOLS, we specialize in modular drilling solutions for demanding industrial applications. Our expertise is focused on high-volume accuracy, reliability, and custom tool engineering.
+              </p>
+            </div>
+
+            <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Heat Exchanger */}
+              <div className="p-6 rounded-xl bg-white dark:bg-[#111417] border border-black/[0.08] dark:border-white/[0.08]">
+                <h3 className="text-lg font-bold text-[#080A0C] dark:text-white mb-2 font-display">
+                  HEAT EXCHANGER DRILLING
+                </h3>
+                <p className="text-xs sm:text-sm text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+                  Precision hole making for tube sheets, baffles, plates and heat exchanger components. Designed for high-volume hole accuracy, efficient chip evacuation, and reduced machining time.
+                </p>
+              </div>
+
+              {/* Structural Steel */}
+              <div className="p-6 rounded-xl bg-white dark:bg-[#111417] border border-black/[0.08] dark:border-white/[0.08]">
+                <h3 className="text-lg font-bold text-[#080A0C] dark:text-white mb-2 font-display">
+                  STRUCTURAL STEEL DRILLING
+                </h3>
+                <p className="text-xs sm:text-sm text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+                  Reliable and efficient drilling solutions for beams, columns, plates, flanges and fabricated structures. Built to deliver reliable performance and high productivity in heavy fabrication.
+                </p>
+              </div>
+
+              {/* Custom Drilling */}
+              <div className="p-6 rounded-xl bg-white dark:bg-[#111417] border border-black/[0.08] dark:border-white/[0.08] md:col-span-2">
+                <h3 className="text-lg font-bold text-[#080A0C] dark:text-white mb-2 font-display">
+                  CUSTOM DRILLING SOLUTIONS
+                </h3>
+                <p className="text-xs sm:text-sm text-[#64748B] dark:text-[#94A3B8] leading-relaxed mb-4">
+                  Tooling solutions developed according to your machine, material, hole diameter, depth and machining requirements. With replaceable cutting components, our systems reduce tooling inventory and overall machining costs.
+                </p>
+                <button
+                  onClick={() => onOpenEnquiry('Custom Drilling Solutions')}
+                  className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-precision-blue hover:text-blue-700 transition-colors"
+                >
+                  <span>REQUEST CUSTOM TOOLING</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );

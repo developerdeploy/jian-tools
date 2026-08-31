@@ -1,0 +1,26 @@
+{
+  "simple": [
+    { "id": "aluminum", "label": "Aluminum", "factor": 0.2 },
+    { "id": "brass", "label": "Brass", "factor": 0.4 },
+    { "id": "bronze", "label": "Bronze", "factor": 0.4 },
+    { "id": "castIron", "label": "Cast Iron", "factor": 0.6 },
+    { "id": "copper", "label": "Copper", "factor": 0.5 },
+    { "id": "magnesium", "label": "Magnesium", "factor": 0.5 },
+    { "id": "malleableIron", "label": "Malleable Iron", "factor": 0.7 },
+    { "id": "zinc", "label": "Zinc", "factor": 0.4 },
+    { "id": "titanium", "label": "Titanium", "factor": 1.4 }
+  ],
+  "hardnessSensitive": [
+    {
+      "groupId": "carbonSteel",
+      "label": "Carbon / mild steel 1008-1095",
+      "values": [
+        { "hardness": 90, "factor": 1.0 },
+        { "hardness": 130, "factor": 1.1 },
+        { "hardness": 170, "factor": 1.2 },
+        { "hardness": 190, "factor": 1.3 },
+        { "hardness": 250, "factor": 1.4 }
+      ]
+    }
+  ]
+}

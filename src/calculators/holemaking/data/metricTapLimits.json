@@ -1,0 +1,4 @@
+[
+  { "sizeMm": 8, "pitchMm": 1.25, "basicPitchDiameterMm": 7.188, "limits": { "D4": { "min": 7.188, "max": 7.213 }, "D5": { "min": 7.213, "max": 7.238 } } },
+  { "sizeMm": 10, "pitchMm": 1.5, "basicPitchDiameterMm": 9.026, "limits": { "D5": { "min": 9.026, "max": 9.056 }, "D6": { "min": 9.056, "max": 9.086 } } }
+]

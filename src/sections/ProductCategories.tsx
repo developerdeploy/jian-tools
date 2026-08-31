@@ -74,9 +74,6 @@ export const ProductCategories: React.FC<ProductCategoriesProps> = ({
                 <h3 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-precision-blue transition-colors mb-2">
                   {category.name}
                 </h3>
-                <p className="text-xs text-slate-600 dark:text-steel-400 font-normal leading-relaxed line-clamp-2 mb-4">
-                  {category.description}
-                </p>
               </div>
 
               {/* Product Visual Container */}
@@ -90,18 +87,8 @@ export const ProductCategories: React.FC<ProductCategoriesProps> = ({
                 <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-[#0D1115] via-transparent to-transparent opacity-80 pointer-events-none" />
               </div>
 
-              {/* Card Footer & Specs Summary */}
+              {/* Card Footer */}
               <div className="p-6 sm:p-8 pt-0 mt-auto">
-                <div className="grid grid-cols-2 gap-2 mb-6 text-[11px] font-mono border-t border-slate-100 dark:border-white/5 pt-4">
-                  <div>
-                    <span className="text-slate-400 dark:text-steel-500 block text-[9px] font-semibold">DIAMETER RANGE</span>
-                    <span className="text-slate-800 dark:text-steel-200 font-bold">{category.specs.diameterRange}</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-400 dark:text-steel-500 block text-[9px] font-semibold">COATING</span>
-                    <span className="text-slate-800 dark:text-steel-200 font-bold">{category.specs.coating}</span>
-                  </div>
-                </div>
 
                 <div className="flex items-center space-x-3">
                   <button

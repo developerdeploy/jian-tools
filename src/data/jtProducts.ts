@@ -145,11 +145,18 @@ export const jtProductsData: JTProduct[] = [
     types: ['Brazed Type', 'Indexable Type'],
     images: [
       {
-        original: '/assets/products/original/05-gun-drill-brazed-and-indexable-types.webp',
-        w1200: '/assets/products/1200w/05-gun-drill-brazed-and-indexable-types.webp',
-        w600: '/assets/products/600w/05-gun-drill-brazed-and-indexable-types.webp',
-        w300: '/assets/products/300w/05-gun-drill-brazed-and-indexable-types.webp',
-        transparent: '/assets/products/transparent/05-gun-drill-brazed-and-indexable-types.webp',
+        original: '/assets/images/products/gun_drill_1.jpg',
+        w1200: '/assets/images/products/gun_drill_1.jpg',
+        w600: '/assets/images/products/gun_drill_1.jpg',
+        w300: '/assets/images/products/gun_drill_1.jpg',
+        transparent: '/assets/images/products/gun_drill_1.jpg',
+      },
+      {
+        original: '/assets/images/products/gun_drill_2.jpg',
+        w1200: '/assets/images/products/gun_drill_2.jpg',
+        w600: '/assets/images/products/gun_drill_2.jpg',
+        w300: '/assets/images/products/gun_drill_2.jpg',
+        transparent: '/assets/images/products/gun_drill_2.jpg',
       }
     ],
     features: [
@@ -612,7 +619,7 @@ export const jtCategories: JTCategory[] = [
     name: 'GUN DRILLS (BRAZED & INDEXABLE)',
     tagline: 'Precision Deep Holemaking up to 80xD',
     description: 'Single-flute gun drills for high straightness and tight bore tolerances in small to medium deep-hole drilling operations.',
-    primaryImage: '/assets/products/600w/05-gun-drill-brazed-and-indexable-types.webp',
+    primaryImage: '/assets/images/products/gun_drill_1.jpg',
     productCount: 1,
     products: jtProductsData.filter(p => p.categorySlug === 'gun-drills')
   },

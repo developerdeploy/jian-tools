@@ -1,0 +1,4 @@
+[
+  { "size": "1/4", "tpi": 20, "majorDiameterIn": 0.25, "basicPitchDiameterIn": 0.2175, "limits": { "H1": { "min": 0.2175, "max": 0.2180 }, "H2": { "min": 0.2180, "max": 0.2185 }, "H3": { "min": 0.2185, "max": 0.2190 } } },
+  { "size": "3/8", "tpi": 16, "majorDiameterIn": 0.375, "basicPitchDiameterIn": 0.3344, "limits": { "H2": { "min": 0.3344, "max": 0.3349 }, "H3": { "min": 0.3349, "max": 0.3354 } } }
+]

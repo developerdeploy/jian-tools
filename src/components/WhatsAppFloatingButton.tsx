@@ -9,18 +9,14 @@ export const WhatsAppFloatingButton: React.FC = () => {
 
   return (
     <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[999999] select-none flex items-center justify-center">
-      {/* Heavy Solid Opaque Backdrop Mask to 100% conceal any corner watermark at all screen sizes & zoom levels */}
-      <div className="absolute -bottom-4 -right-4 w-36 h-28 sm:w-48 sm:h-32 bg-[#07090B] dark:bg-[#07090B] rounded-tl-3xl shadow-2xl pointer-events-none -z-10 opacity-95 border-t border-l border-white/10" />
 
       <a
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with JIAN TOOLS on WhatsApp"
-        className="group relative flex items-center space-x-2.5 px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-[0_4px_30px_rgba(37,211,102,0.6)] transition-all duration-300 transform hover:scale-105 active:scale-95 border-2 border-white/30"
+        className="group relative flex items-center space-x-2.5 px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white transition-all duration-300 transform hover:scale-105 active:scale-95 border border-black/5 dark:border-white/10 shadow-lg shadow-black/10"
       >
-        {/* Pulsing Ripple Effect */}
-        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-25 group-hover:opacity-40 pointer-events-none" />
 
         {/* WhatsApp Icon */}
         <svg

@@ -1,0 +1,311 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - button "JIAN TOOLS Home" [ref=e6] [cursor=pointer]:
+        - generic [ref=e7]: Jian Tools
+      - navigation [ref=e8]:
+        - button "Home" [ref=e9] [cursor=pointer]
+        - button "Products" [ref=e10] [cursor=pointer]
+        - button "About" [ref=e11] [cursor=pointer]
+        - button "Contact" [ref=e12] [cursor=pointer]
+      - generic [ref=e13]:
+        - button "Toggle theme" [ref=e14] [cursor=pointer]
+        - button "Speed & Feed Calculator" [ref=e21] [cursor=pointer]
+        - button "Get a Quote" [ref=e24] [cursor=pointer]
+  - main [ref=e25]:
+    - generic [ref=e28]:
+      - generic [ref=e29]:
+        - heading "Precision Modular Drilling Solutions for Heat Exchangers & Structural Steel" [level=1] [ref=e30]
+        - paragraph [ref=e31]: High-performance modular drilling systems engineered for accurate, efficient and economical hole making in tube sheets, plates, flanges and structural components.
+        - generic [ref=e32]:
+          - button "Explore Products" [ref=e33] [cursor=pointer]
+          - button "Request Quote" [ref=e37] [cursor=pointer]
+          - button "3D CGI Coming Soon" [ref=e38] [cursor=pointer]
+        - generic [ref=e42]:
+          - generic [ref=e43]: Machine Accuracy
+          - generic [ref=e44]: ± 0.020 mm
+      - generic [ref=e45]:
+        - generic [ref=e46]:
+          - generic [ref=e47]:
+            - button "3D End Mill" [ref=e48] [cursor=pointer]
+            - button "Modular Drill" [ref=e53] [cursor=pointer]
+          - generic [ref=e59]: Drag to rotate
+        - generic [ref=e61]:
+          - generic [ref=e63]:
+            - button "Zoom In" [ref=e64] [cursor=pointer]
+            - button "Zoom Out" [ref=e68] [cursor=pointer]
+            - button "Reset View" [ref=e73] [cursor=pointer]
+          - generic:
+            - generic [ref=e77]:
+              - generic [ref=e79]: END MILLING.SLDPRT
+              - generic [ref=e80]: 3D CAD
+            - generic [ref=e81]:
+              - button "ROSE GOLD" [ref=e82] [cursor=pointer]
+              - button "DARK GREY" [ref=e83] [cursor=pointer]
+              - button "TiN GOLD" [ref=e84] [cursor=pointer]
+          - generic [ref=e85]:
+            - generic [ref=e86]:
+              - generic [ref=e87]: "VIEW:"
+              - button "iso" [ref=e88] [cursor=pointer]
+              - button "tip" [ref=e89] [cursor=pointer]
+              - button "flutes" [ref=e90] [cursor=pointer]
+              - button "shank" [ref=e91] [cursor=pointer]
+            - generic [ref=e92]:
+              - generic [ref=e93]: "SPECS:"
+              - button "1" [ref=e94] [cursor=pointer]
+              - button "2" [ref=e95] [cursor=pointer]
+              - button "3" [ref=e96] [cursor=pointer]
+              - button "4" [ref=e97] [cursor=pointer]
+          - generic [ref=e98]:
+            - generic [ref=e99]:
+              - generic [ref=e100]:
+                - generic [ref=e101]: Ø 12.0 mm
+                - generic [ref=e102]: •
+                - generic [ref=e103]: 4-FLUTE HELIX
+                - generic [ref=e104]: •
+                - generic [ref=e105]: 38° HELIX
+              - generic [ref=e106]: Rose Gold / Copper
+            - generic [ref=e107]:
+              - button "Toggle CAD Wireframe Mesh" [ref=e108] [cursor=pointer]
+              - button "Toggle 360° Auto-Rotation" [ref=e113] [cursor=pointer]
+              - link "DOWNLOAD .SLDPRT" [ref=e118] [cursor=pointer]:
+                - /url: /assets/cad/End-Milling.SLDPRT
+              - button "QUOTE" [ref=e123] [cursor=pointer]
+    - generic [ref=e126]:
+      - generic [ref=e127]:
+        - heading "Modular Drilling System 1D to 12D Depth Range" [level=2] [ref=e129]:
+          - text: Modular Drilling System
+          - generic [ref=e130]: 1D to 12D Depth Range
+        - button "Explode View" [ref=e132] [cursor=pointer]
+      - generic [ref=e138]:
+        - button "1D 1D" [ref=e139] [cursor=pointer]:
+          - generic [ref=e140]: 1D
+          - generic [ref=e141]: 1D
+        - button "2D 2D" [ref=e142] [cursor=pointer]:
+          - generic [ref=e143]: 2D
+          - generic [ref=e144]: 2D
+        - button "3D 3D" [ref=e145] [cursor=pointer]:
+          - generic [ref=e146]: 3D
+          - generic [ref=e147]: 3D
+        - button "4D 4D" [ref=e148] [cursor=pointer]:
+          - generic [ref=e149]: 4D
+          - generic [ref=e150]: 4D
+        - button "5D 5D" [ref=e151] [cursor=pointer]:
+          - generic [ref=e152]: 5D
+          - generic [ref=e153]: 5D
+        - button "6D 6D" [ref=e154] [cursor=pointer]:
+          - generic [ref=e155]: 6D
+          - generic [ref=e156]: 6D
+        - button "7D 7D" [ref=e157] [cursor=pointer]:
+          - generic [ref=e158]: 7D
+          - generic [ref=e159]: 7D
+        - button "8D 8D" [ref=e160] [cursor=pointer]:
+          - generic [ref=e161]: 8D
+          - generic [ref=e162]: 8D
+        - button "9D 9D" [ref=e163] [cursor=pointer]:
+          - generic [ref=e164]: 9D
+          - generic [ref=e165]: 9D
+        - button "10D 10D" [ref=e166] [cursor=pointer]:
+          - generic [ref=e167]: 10D
+          - generic [ref=e168]: 10D
+        - button "11D 11D" [ref=e169] [cursor=pointer]:
+          - generic [ref=e170]: 11D
+          - generic [ref=e171]: 11D
+        - button "12D 12D" [ref=e172] [cursor=pointer]:
+          - generic [ref=e173]: 12D
+          - generic [ref=e174]: 12D
+      - generic [ref=e175]:
+        - generic [ref=e176]:
+          - generic [ref=e177]:
+            - img "JIAN Modular Drill 3D" [ref=e179]
+            - generic: Drag to rotate
+          - generic [ref=e180]:
+            - generic [ref=e181]:
+              - button "Auto Spin" [ref=e182] [cursor=pointer]
+              - button "Reset angle" [ref=e186] [cursor=pointer]
+            - button "View All 12" [ref=e190] [cursor=pointer]
+        - generic [ref=e191]:
+          - generic [ref=e192]:
+            - heading "Replaceable Type Modular Drills" [level=3] [ref=e193]
+            - generic [ref=e194]:
+              - generic [ref=e195]:
+                - generic [ref=e196]: Reach Ratio
+                - generic [ref=e197]: 3D (3× Dia)
+              - generic [ref=e198]:
+                - generic [ref=e199]: Diameter Range
+                - generic [ref=e200]: 12.0 to 40.0 mm
+              - generic [ref=e201]:
+                - generic [ref=e202]: Coolant System
+                - generic [ref=e203]: Internal Coolant
+          - button "Request Quote for 3D" [ref=e205] [cursor=pointer]
+    - generic [ref=e207]:
+      - generic [ref=e208]:
+        - heading "Tube Sheet & Baffle Drilling High-volume drilling with zero scrap tolerance" [level=2] [ref=e210]:
+          - text: Tube Sheet & Baffle Drilling
+          - generic [ref=e211]: High-volume drilling with zero scrap tolerance
+        - paragraph [ref=e213]: Drilling thousands of contiguous holes in boiler tube sheets, heat exchangers, and stacked baffle plates demands rigid modular drill bodies that eliminate hole bell-mouthing and drift.
+      - generic [ref=e214]:
+        - generic [ref=e215]:
+          - img "Stacked Baffle Plate Drilling in Production" [ref=e217]
+          - generic [ref=e218]:
+            - generic [ref=e219]:
+              - generic [ref=e220]: Hole Accuracy
+              - generic [ref=e221]: +25 microns
+            - generic [ref=e222]:
+              - generic [ref=e223]: Surface Finish
+              - generic [ref=e224]: Ra 1.6 – 6.4 μm
+        - generic [ref=e225]:
+          - generic [ref=e226]:
+            - generic [ref=e227]: Solving Machining Bottlenecks
+            - heading "Eliminate Re-clamping & Presetting" [level=3] [ref=e231]
+            - paragraph [ref=e232]: When drilling arrays of 5,000+ holes in thick tube sheets, tool wear causes downtime. JIAN TOOLS modular crown drills allow indexable cutting head replacement right in the spindle without resetting machine datums.
+            - generic [ref=e233]:
+              - generic [ref=e234]: Self-centering 140° crown tip prevents hole walking
+              - generic [ref=e239]: Dual internal coolant ports clear swarf chips
+              - generic [ref=e244]: Bodies available from 1D up to 12D reach ratios
+          - generic [ref=e249]:
+            - img "Stacked Baffle Sheet" [ref=e251]
+            - img "Perforated Plate Drilling" [ref=e253]
+    - generic [ref=e255]:
+      - generic [ref=e256]:
+        - heading "Product Range 11 precision tool categories" [level=2] [ref=e258]:
+          - text: Product Range
+          - generic [ref=e259]: 11 precision tool categories
+        - button "View All Products" [ref=e261] [cursor=pointer]
+      - generic [ref=e265]:
+        - generic [ref=e266]:
+          - button "01 MODULAR DRILL / CROWN DRILL" [ref=e267] [cursor=pointer]:
+            - generic [ref=e268]:
+              - generic [ref=e269]: "01"
+              - generic [ref=e270]: MODULAR DRILL / CROWN DRILL
+          - button "02 Deep hole drilling - BTA (BRAZED & INDEXABLE)" [ref=e273] [cursor=pointer]:
+            - generic [ref=e274]:
+              - generic [ref=e275]: "02"
+              - generic [ref=e276]: Deep hole drilling - BTA (BRAZED & INDEXABLE)
+          - button "03 GUN DRILLS (BRAZED & INDEXABLE)" [ref=e279] [cursor=pointer]:
+            - generic [ref=e280]:
+              - generic [ref=e281]: "03"
+              - generic [ref=e282]: GUN DRILLS (BRAZED & INDEXABLE)
+          - button "04 Bar Peeling Inserts" [ref=e285] [cursor=pointer]:
+            - generic [ref=e286]:
+              - generic [ref=e287]: "04"
+              - generic [ref=e288]: Bar Peeling Inserts
+          - button "05 Tube Scarfing" [ref=e291] [cursor=pointer]:
+            - generic [ref=e292]:
+              - generic [ref=e293]: "05"
+              - generic [ref=e294]: Tube Scarfing
+          - button "06 BTA Tube & Accessories" [ref=e297] [cursor=pointer]:
+            - generic [ref=e298]:
+              - generic [ref=e299]: "06"
+              - generic [ref=e300]: BTA Tube & Accessories
+          - button "07 Solid Carbide End Mills" [ref=e303] [cursor=pointer]:
+            - generic [ref=e304]:
+              - generic [ref=e305]: "07"
+              - generic [ref=e306]: Solid Carbide End Mills
+          - button "08 Solid Carbide Drills" [ref=e309] [cursor=pointer]:
+            - generic [ref=e310]:
+              - generic [ref=e311]: "08"
+              - generic [ref=e312]: Solid Carbide Drills
+          - button "09 Carbide Rods" [ref=e315] [cursor=pointer]:
+            - generic [ref=e316]:
+              - generic [ref=e317]: "09"
+              - generic [ref=e318]: Carbide Rods
+          - button "10 Reamers" [ref=e321] [cursor=pointer]:
+            - generic [ref=e322]:
+              - generic [ref=e323]: "10"
+              - generic [ref=e324]: Reamers
+          - button "11 ISO Turning and Milling Inserts" [ref=e327] [cursor=pointer]:
+            - generic [ref=e328]:
+              - generic [ref=e329]: "11"
+              - generic [ref=e330]: ISO Turning and Milling Inserts
+        - generic [ref=e334]:
+          - img "MODULAR DRILL / CROWN DRILL" [ref=e336]
+          - generic [ref=e337]:
+            - generic [ref=e338]:
+              - heading "MODULAR DRILL / CROWN DRILL" [level=3] [ref=e339]
+              - paragraph [ref=e340]: High-rigidity modular drill bodies with quick-change crown heads for stable holemaking and minimized spindle downtime.
+              - generic [ref=e341]:
+                - generic [ref=e342]:
+                  - generic [ref=e343]: Depth Range
+                  - generic [ref=e344]: 1D — 12D Multiplier
+                - generic [ref=e345]:
+                  - generic [ref=e346]: Head Locking
+                  - generic [ref=e347]: High-Torque Cam Lock
+                - generic [ref=e348]:
+                  - generic [ref=e349]: Coolant Supply
+                  - generic [ref=e350]: Dual Internal Helical Ports
+            - generic [ref=e351]:
+              - button "View Category" [ref=e352] [cursor=pointer]
+              - button "Request quote for MODULAR DRILL / CROWN DRILL" [ref=e356] [cursor=pointer]
+    - generic [ref=e362]:
+      - generic [ref=e363]:
+        - heading "Ready to discuss your tooling requirements?" [level=2] [ref=e364]:
+          - text: Ready to discuss your
+          - generic [ref=e365]: tooling requirements?
+        - paragraph [ref=e366]: Share your component drawing, discuss deep-hole drilling needs, or request a tailored carbide tooling proposal from our application engineers.
+        - generic [ref=e367]:
+          - button "Talk to Jian Tools" [ref=e368] [cursor=pointer]
+          - button "Browse Products" [ref=e373] [cursor=pointer]
+      - generic [ref=e378]:
+        - heading "Manufacturing & Contact" [level=3] [ref=e379]
+        - generic [ref=e380]:
+          - generic [ref=e386]:
+            - generic [ref=e387]: Location
+            - generic [ref=e388]: 967 / 7, Ground Floor, Makarpura GIDC, Vadodara – 390 010, Gujarat, India
+          - generic [ref=e393]:
+            - generic [ref=e394]: Phone & WhatsApp
+            - link "+91 79848 76123" [ref=e395] [cursor=pointer]:
+              - /url: tel:+917984876123
+          - generic [ref=e401]:
+            - generic [ref=e402]: Hours
+            - generic [ref=e403]: "Monday – Saturday: 9:00 AM – 7:00 PM IST"
+  - contentinfo [ref=e404]:
+    - generic [ref=e405]:
+      - generic [ref=e406]:
+        - generic [ref=e407]:
+          - generic [ref=e408]: Jian Tools
+          - paragraph [ref=e409]: Your solution provider for all your carbide cutting tools need.
+        - generic [ref=e410]:
+          - generic [ref=e411]: Products
+          - list [ref=e412]:
+            - listitem [ref=e413]:
+              - button "Modular Drill / Crown Drill" [ref=e414] [cursor=pointer]
+            - listitem [ref=e415]:
+              - button "Deep Hole BTA Drills" [ref=e416] [cursor=pointer]
+            - listitem [ref=e417]:
+              - button "Gun Drills" [ref=e418] [cursor=pointer]
+            - listitem [ref=e419]:
+              - button "Bar Peeling Inserts" [ref=e420] [cursor=pointer]
+            - listitem [ref=e421]:
+              - button "Tube Scarfing" [ref=e422] [cursor=pointer]
+            - listitem [ref=e423]:
+              - button "BTA Tube & Accessories" [ref=e424] [cursor=pointer]
+            - listitem [ref=e425]:
+              - button "Solid Carbide End Mills" [ref=e426] [cursor=pointer]
+            - listitem [ref=e427]:
+              - button "Solid Carbide Drills" [ref=e428] [cursor=pointer]
+            - listitem [ref=e429]:
+              - button "Carbide Rods" [ref=e430] [cursor=pointer]
+            - listitem [ref=e431]:
+              - button "Reamers" [ref=e432] [cursor=pointer]
+            - listitem [ref=e433]:
+              - button "ISO Turning & Milling Inserts" [ref=e434] [cursor=pointer]
+        - generic [ref=e435]:
+          - generic [ref=e436]: Contact
+          - generic [ref=e437]:
+            - generic [ref=e438]: 967 / 7, Ground Floor, Makarpura GIDC, Vadodara – 390 010, Gujarat, India
+            - link "+91 79848 76123" [ref=e446] [cursor=pointer]:
+              - /url: tel:+917984876123
+            - link "WhatsApp" [ref=e450] [cursor=pointer]:
+              - /url: https://wa.me/917984876123?text=Hi%20JIAN%20TOOLS%2C%20I%20would%20like%20to%20enquire%20about%20your%20carbide%20cutting%20tools%20and%20modular%20drilling%20solutions.
+      - generic [ref=e451]:
+        - generic [ref=e452]: © 2026 Jian Tools (jiantools.in). All rights reserved.
+        - generic [ref=e453]:
+          - button "Home" [ref=e454] [cursor=pointer]
+          - button "Products" [ref=e455] [cursor=pointer]
+          - button "About" [ref=e456] [cursor=pointer]
+          - button "Contact" [ref=e457] [cursor=pointer]
+          - button "Top" [ref=e458] [cursor=pointer]
+  - link "Chat with JIAN TOOLS on WhatsApp" [ref=e463] [cursor=pointer]:
+    - /url: https://wa.me/917984876123?text=Hello%20JIAN%20TOOLS%2C%20I%20am%20interested%20in%20precision%20carbide%20cutting%20tools%20and%20modular%20crown%20drills.
+    - generic [ref=e466]: WhatsApp Direct

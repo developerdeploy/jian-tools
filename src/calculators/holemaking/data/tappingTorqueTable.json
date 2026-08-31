@@ -1,0 +1,30 @@
+[
+  {
+    "tap": "1/4-20",
+    "diameterIn": 0.25,
+    "tpi": 20,
+    "torqueUnit": "in-lb",
+    "minTappingTorque": 40,
+    "maxTappingTorque": 80,
+    "breakingLow": 50,
+    "breakingHigh": 100,
+    "referenceMinHp": 0.5,
+    "holderNormal": 50,
+    "holderMin": 40,
+    "holderMax": 80
+  },
+  {
+    "tap": "M8x1.25",
+    "diameterMm": 8.0,
+    "pitchMm": 1.25,
+    "torqueUnit": "in-lb",
+    "minTappingTorque": 75,
+    "maxTappingTorque": 140,
+    "breakingLow": 90,
+    "breakingHigh": 180,
+    "referenceMinHp": 0.5,
+    "holderNormal": 95,
+    "holderMin": 75,
+    "holderMax": 140
+  }
+]

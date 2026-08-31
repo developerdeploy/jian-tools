@@ -18,7 +18,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         return savedTheme;
       }
     }
-    return 'dark'; // default theme
+    return 'light'; // default theme
   });
 
   useEffect(() => {

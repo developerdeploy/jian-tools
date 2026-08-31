@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { modularDrillVariations, modularDrillFeatures } from '../data/modularDrillData';
-import { Sliders, Maximize2, ShieldCheck, Droplets, Gauge } from 'lucide-react';
+import { Sliders, Maximize2, ShieldCheck, Droplets, Gauge, Download } from 'lucide-react';
 
 interface ModularDrillingProps {
   onOpenEnquiry: (productName?: string) => void;
@@ -11,6 +11,11 @@ export const ModularDrilling: React.FC<ModularDrillingProps> = ({ onOpenEnquiry 
   const [showBlueprintModal, setShowBlueprintModal] = useState<boolean>(false);
 
   const activeDrill = modularDrillVariations[selectedDepthIndex];
+  
+  const getModelUrl = (depthRatio: string) => {
+    const lower = depthRatio.toLowerCase();
+    return `/models/${lower}${['8d', '9d', '12d'].includes(lower) ? '.stp' : '.zip'}`;
+  };
 
   return (
     <section id="modular-drilling" className="relative w-full py-32 bg-slate-100 dark:bg-[#050608] border-t border-slate-200 dark:border-white/10 overflow-hidden">
@@ -39,7 +44,16 @@ export const ModularDrilling: React.FC<ModularDrillingProps> = ({ onOpenEnquiry 
             </h2>
           </div>
 
-          <div className="mt-4 md:mt-0 flex items-center space-x-4">
+          <div className="mt-4 md:mt-0 flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
+            <a
+              href={getModelUrl(activeDrill.depthRatio)}
+              download
+              className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-lg bg-precision-blue hover:bg-blue-600 text-white text-xs font-mono transition-all shadow-[0_0_15px_rgba(0,102,255,0.3)] font-semibold"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>DOWNLOAD 3D MODEL (.STP)</span>
+            </a>
+
             <button
               onClick={() => setShowBlueprintModal(true)}
               className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-lg bg-white dark:bg-white/5 border border-slate-300 dark:border-white/15 text-xs font-mono text-slate-800 dark:text-steel-200 transition-all hover:border-precision-blue shadow-sm font-semibold"

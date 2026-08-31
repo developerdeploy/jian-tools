@@ -1,0 +1,10 @@
+[
+  { "id": "metric-6.8", "system": "metric", "label": "6.8 mm", "diameterIn": 0.2677, "diameterMm": 6.8 },
+  { "id": "metric-6.9", "system": "metric", "label": "6.9 mm", "diameterIn": 0.2717, "diameterMm": 6.9 },
+  { "id": "metric-8.0", "system": "metric", "label": "8.0 mm", "diameterIn": 0.3150, "diameterMm": 8.0 },
+  { "id": "number-7", "system": "number", "label": "#7", "diameterIn": 0.2010, "diameterMm": 5.1054 },
+  { "id": "fractional-1/4", "system": "fractional", "label": "1/4\"", "diameterIn": 0.2500, "diameterMm": 6.3500 },
+  { "id": "fractional-5/16", "system": "fractional", "label": "5/16\"", "diameterIn": 0.3125, "diameterMm": 7.9375 },
+  { "id": "fractional-3/8", "system": "fractional", "label": "3/8\"", "diameterIn": 0.3750, "diameterMm": 9.5250 },
+  { "id": "fractional-1/2", "system": "fractional", "label": "1/2\"", "diameterIn": 0.5000, "diameterMm": 12.7000 }
+]
