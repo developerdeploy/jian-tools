@@ -74,21 +74,10 @@ const TECHNICAL_SECTIONS = [
     content: (
       <div className="space-y-4">
         <p className="text-slate-600 dark:text-gray-400">Our modular tooling systems cover a wide spectrum of hole diameters, reducing the need for solid carbide drills at large sizes.</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-slate-50 dark:bg-white/5 p-4 rounded-xl border border-slate-200 dark:border-white/10">
-            <h5 className="font-bold text-precision-blue mb-1">Small Series</h5>
-            <p className="text-2xl font-black text-slate-900 dark:text-white font-display">Ø 8.00 - 15.99mm</p>
-            <p className="text-xs text-slate-500 mt-2">Crown Drills / High Speed</p>
-          </div>
-          <div className="bg-slate-50 dark:bg-white/5 p-4 rounded-xl border border-slate-200 dark:border-white/10">
-            <h5 className="font-bold text-precision-blue mb-1">Medium Series</h5>
-            <p className="text-2xl font-black text-slate-900 dark:text-white font-display">Ø 16.00 - 32.00mm</p>
-            <p className="text-xs text-slate-500 mt-2">Modular Drills / Inserts</p>
-          </div>
-          <div className="bg-slate-50 dark:bg-white/5 p-4 rounded-xl border border-slate-200 dark:border-white/10">
-            <h5 className="font-bold text-precision-blue mb-1">Large Series</h5>
-            <p className="text-2xl font-black text-slate-900 dark:text-white font-display">Ø 32.01 - 52.00mm</p>
-            <p className="text-xs text-slate-500 mt-2">Cartridge Drills / Custom</p>
+        <div className="grid grid-cols-1 gap-4">
+          <div className="bg-slate-50 dark:bg-white/5 p-4 rounded-xl border border-slate-200 dark:border-white/10 text-center">
+            <p className="text-3xl font-black text-slate-900 dark:text-white font-display mt-2">Ø 8.00 - 52.00mm</p>
+            <p className="text-sm font-bold text-precision-blue mt-3 mb-2">Modular Drills / Crown Drills</p>
           </div>
         </div>
       </div>

@@ -20,14 +20,14 @@ export const CalculatorsPage: React.FC<CalculatorsPageProps> = ({
   onOpenEnquiry
 }) => {
   const [unitSystem, setUnitSystem] = useState<UnitSystem>('metric');
-  const [activeCalculator, setActiveCalculator] = useState<CalculatorId>('cutting-fluid');
+  const [activeCalculator, setActiveCalculator] = useState<CalculatorId>('drilling-forces');
 
   const calculators = [
+    { id: 'drilling-forces', label: 'Drilling Parameters', icon: Zap },
     { id: 'cutting-fluid', label: 'Cutting Fluid', icon: Droplets },
     { id: 'tap-drill', label: 'Tap Drill Size', icon: ArrowDownToDot },
     { id: 'tap-limits', label: 'D/H Tap Limits', icon: CircleDashed },
-    { id: 'tapping-torque', label: 'Tapping Torque', icon: Settings },
-    { id: 'drilling-forces', label: 'Drilling Kinematics', icon: Zap }
+    { id: 'tapping-torque', label: 'Tapping Torque', icon: Settings }
   ] as const;
 
   return (
@@ -62,7 +62,7 @@ export const CalculatorsPage: React.FC<CalculatorsPageProps> = ({
           {/* Navigator (Left) */}
           <div className="lg:col-span-3">
             <div className="p-4 rounded-xl bg-white dark:bg-[#0D1115] border border-slate-200 dark:border-white/10 shadow-sm sticky top-32">
-              <h2 className="text-[10px] font-bold font-mono text-slate-400 mb-4 tracking-wider uppercase px-2">Calculator Suite</h2>
+              <h2 className="text-[10px] font-bold font-mono text-slate-400 mb-4 tracking-wider uppercase px-2">Calculator</h2>
               <div className="flex flex-col space-y-1">
                 {calculators.map(calc => {
                   const Icon = calc.icon;

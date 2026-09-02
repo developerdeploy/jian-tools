@@ -102,9 +102,16 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center space-x-2 group text-left cursor-pointer focus:outline-none"
             aria-label="JIAN TOOLS Home"
           >
-            <span className="text-xl font-black tracking-widest text-slate-900 dark:text-white font-display group-hover:text-precision-blue transition-colors uppercase">
-              Jian Tools
-            </span>
+            <img
+              src="/jian logo dark.png"
+              alt="Jian Tools"
+              className="h-8 md:h-10 w-auto block dark:hidden"
+            />
+            <img
+              src="/jian logo light.png"
+              alt="Jian Tools"
+              className="h-8 md:h-10 w-auto hidden dark:block"
+            />
           </button>
 
           {/* Desktop Navigation - Morphic Style */}

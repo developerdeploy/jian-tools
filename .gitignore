@@ -39,6 +39,7 @@ dist-ssr
 # Large root zip and raw media archives in root only
 /*.zip
 /*.mp4
+/*.webm
 /*.jpeg
 /WhatsApp Image*.jpeg
 /scene-*.txt
@@ -57,7 +58,6 @@ scratch/
 extracted_models/
 *.zip
 *.png
-
+!/public/**
 
 _archive/
-

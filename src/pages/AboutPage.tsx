@@ -160,7 +160,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             <div className="space-y-2.5 font-mono text-xs pt-4 border-t border-white/[0.08]">
               <div className="flex items-center space-x-2 text-[#CBD5E1]">
                 <CheckCircle2 className="w-3.5 h-3.5 text-precision-blue shrink-0" />
-                <span>High-Rigidity Cam-Lock Modular Crown Bodies</span>
+                <span>High-Rigidity Screw Lock Modular Drill Bodies</span>
               </div>
               <div className="flex items-center space-x-2 text-[#CBD5E1]">
                 <CheckCircle2 className="w-3.5 h-3.5 text-precision-blue shrink-0" />

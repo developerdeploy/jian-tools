@@ -13,7 +13,7 @@ export const SEO: React.FC<SEOProps> = ({
   title, 
   description, 
   canonical, 
-  image = 'https://jiantools.in/assets/logo/logo.webp', 
+  image = 'https://jiantools.in/logo.png', 
   type = 'website' 
 }) => {
   return (

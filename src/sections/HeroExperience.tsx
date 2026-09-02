@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { ArrowRight, Film } from 'lucide-react';
+import React from 'react';
+import { ArrowRight } from 'lucide-react';
 
 interface HeroExperienceProps {
   onExploreClick: () => void;
@@ -12,47 +12,34 @@ export const HeroExperience: React.FC<HeroExperienceProps> = ({
   onOpenEnquiry,
   onViewAnimationSoon
 }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const handleTimeUpdate = () => {
-    if (videoRef.current && videoRef.current.duration) {
-      // Loop the video 8 seconds before it actually ends to hide the 'coming soon' text
-      if (videoRef.current.currentTime >= videoRef.current.duration - 8.0) {
-        videoRef.current.currentTime = 0;
-        videoRef.current.play().catch(() => {});
-      }
-    }
-  };
   return (
     <section
       id="hero"
       className="relative w-full min-h-[85vh] lg:min-h-[880px] bg-[#0a0a0a] text-white overflow-hidden flex items-center pt-24 pb-16"
     >
-      {/* Background Video */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
+      {/* Background Video (playing in background across mobile & desktop) */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <video
-          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          onTimeUpdate={handleTimeUpdate}
-          className="w-full h-full object-cover opacity-60"
+          className="w-full h-full object-contain md:object-cover opacity-75 md:opacity-60"
         >
           <source src="/hero-bg.webm" type="video/webm" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-black/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-black/60 to-transparent" />
+        <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-black/60 to-transparent" />
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10">
         <div className="max-w-3xl flex flex-col justify-center">
           
-          <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold tracking-tight leading-tight text-white mb-6 font-display">
+          <h1 className="text-3xl sm:text-4xl lg:text-[3.5rem] font-bold tracking-tight leading-tight text-white mb-6 font-display">
             Precision Modular Drilling Solutions for Heat Exchangers & Structural Steel
           </h1>
 
-          <p className="text-lg text-gray-300 max-w-2xl leading-relaxed mb-10">
+          <p className="text-base sm:text-lg text-gray-300 max-w-2xl leading-relaxed mb-10">
             High-performance modular drilling systems engineered for accurate, efficient and economical hole making in tube sheets, plates, flanges and structural components.
           </p>
 
@@ -78,7 +65,7 @@ export const HeroExperience: React.FC<HeroExperienceProps> = ({
 
           {/* Single spec */}
           <div className="pt-6 border-t border-white/20 inline-block">
-            <div className="text-sm text-gray-400 font-medium uppercase tracking-wider mb-1">Machine Accuracy</div>
+            <div className="text-sm text-gray-400 font-medium uppercase tracking-wider mb-1">Drilled Hole Accuracy</div>
             <div className="text-xl text-white font-semibold font-mono">± 0.020 mm</div>
           </div>
 
