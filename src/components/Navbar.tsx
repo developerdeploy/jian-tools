@@ -40,18 +40,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navStructure = [
     { id: 'home', label: 'HOME', type: 'link' },
     { id: 'about', label: 'ABOUT JIAN TOOLS', type: 'link' },
-    {
-      id: 'products',
-      label: 'PRODUCTS',
-      type: 'dropdown',
-      items: [
-        { label: 'Modular Drills', slug: 'modular-drill-crown-drill' },
-        { label: 'Cartridges', slug: 'cartridge-type-drill' },
-        { label: 'Inserts', slug: 'scarfing-inserts' },
-        { label: 'Pilot Drills', slug: 'gun-drills' },
-        { label: 'Special Tools', slug: 'special-tools' }
-      ]
-    },
+    { id: 'products', label: 'PRODUCTS', type: 'link' },
     {
       id: 'applications',
       label: 'APPLICATIONS',
